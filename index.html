@@ -537,7 +537,7 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .detail-yoc strong em{font-size:13px;font-style:normal;margin-left:1px}
 .detail-yoc span{display:block;margin-top:4px;color:var(--muted);font-family:var(--numfont);font-size:9px;white-space:nowrap}
 .detail-sparks:empty{display:none}
-#detailScrim .modal{max-width:720px;margin:0 auto}
+#detailScrim .modal{max-width:720px;margin:calc(env(safe-area-inset-top,0px) + 12px) auto 12px}
 .detail-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:8px 0 9px;padding:3px;border:1px solid var(--line);border-radius:9px;background:color-mix(in srgb,var(--panel3) 72%,transparent)}
 .detail-tab{min-width:0;padding:7px 8px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:11.5px;font-weight:700;transition:.15s}
 .detail-tab:hover{color:var(--ink);background:var(--control)}
@@ -777,6 +777,8 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
           <button data-sort="gain">含み益順</button>
           <button data-sort="drop">下落率順</button>
           <button data-sort="hike">増配率順</button>
+          <button data-sort="receipts">配当総額順</button>
+          <button data-sort="level">増配レベル順</button>
         </div>
       </div>
       <div class="filterwrap">
@@ -1137,11 +1139,14 @@ function trendMini(kind,val){
 
 function buildCard(h){
   const d=derive(h);
+  const receiptTotal=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);
+  const firstDiv=num(h.firstAnnualDividend),growthLevel=firstDiv>0?num(d.effDiv)/firstDiv*100-100:null;
   const el=document.createElement("div");
   el.className=d.saleOn?"card saleon":"card"; el.style.setProperty("--rc",d.tier.color);
   el.dataset.id=h.id; el.dataset.class=h.cls; el.dataset.flag=d.flag||"";
   el.dataset.yoc=d.netYoc; el.dataset.yield=d.netYld; el.dataset.rank=d.tier.rank; el.dataset.grade=d.tier.g;
   el.dataset.gain=d.gainPct; el.dataset.drop=d.drop; el.dataset.hike=d.effHike; el.dataset.value=d.value; el.dataset.hasyutai=d.hasYutai?"1":"";
+  el.dataset.receipts=receiptTotal; el.dataset.level=growthLevel==null||!Number.isFinite(growthLevel)?-1e9:growthLevel;
   el.dataset.month=h.month||0; el.dataset.mg=monthGroup(h.month); el.dataset.cap=h.cap||0; el.dataset.caprank=capRank(h.cap||0);
   el.dataset.classorder=CLASS_ORDER[h.cls]; el.dataset.sector=h.sector||"";
   const ribbon=d.flag==="buy"?`<div class="status buy" title="買い増し候補">+</div>`:d.flag==="sell"?`<div class="status sell" title="見直し候補">!</div>`:d.flag==="dca"?`<div class="status dca" title="積立中">積</div>`:"";
@@ -1159,8 +1164,6 @@ function buildCard(h){
   const yLevel=d.hasYield?(d.netYld>=4?3:d.netYld>=3.5?2:d.netYld>=3?1:0):0;
   const valueMan=Math.round(d.value/10000).toLocaleString("ja-JP");
   const capLine=`<div class="capmini">時価総額 <b>${capLabel(h.cap)}</b></div>`;
-  const receiptTotal=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);
-  const firstDiv=num(h.firstAnnualDividend),growthLevel=firstDiv>0?num(d.effDiv)/firstDiv*100-100:null;
   const growthBadge=growthLevel==null||!Number.isFinite(growthLevel)?"":`<span class="growth-lv">Lv.${growthLevel>=0?"+":""}${Math.round(growthLevel)}%</span>`;
   const trendRow=`<div class="cardfoot"><div class="trendleft"><span class="commentmini" title="${esc(d.memo)}">${esc(d.memo)}</span><div class="trendmini">${trendMini("divtrend",d.divRecent)}${trendMini("eps",recentTrend(h.eps,3))}</div></div><div class="footright"><span class="settlemini"><span class="receiptmini">配当総額 ${yen(receiptTotal)}</span><span class="monthmini">${monthLabel(h.month)}</span></span><span class="botright"><span class="sharemini">${h.shares.toLocaleString()}${qtyUnit(h)}</span><span class="valuebadge">¥${valueMan}<small>万</small></span></span></div></div>`;
   el.innerHTML = ribbon + acctTop + ybadge + saletag + growthBadge + iconHTML(h) + `
@@ -1423,6 +1426,8 @@ const SORTS={
   gain:{cmp:(a,b)=>f(b,"gain")-f(a,"gain")},
   drop:{cmp:(a,b)=>f(b,"drop")-f(a,"drop")},
   value:{cmp:(a,b)=>f(b,"value")-f(a,"value")},
+  receipts:{cmp:(a,b)=>f(b,"receipts")-f(a,"receipts")||f(b,"value")-f(a,"value")},
+  level:{cmp:(a,b)=>f(b,"level")-f(a,"level")||f(b,"yoc")-f(a,"yoc")},
   rarity:{group:true,cmp:(a,b)=>f(b,"rank")-f(a,"rank")||f(b,"yoc")-f(a,"yoc"),gkey:c=>c.dataset.grade,glabel:k=>k==="—"?"配当なし":`ランク ${k}${gradeRangeLabel(k)}`},
   month:{group:true,cmp:(a,b)=>f(a,"mg")-f(b,"mg")||f(a,"month")-f(b,"month"),gkey:c=>c.dataset.mg,glabel:monthGroupLabel},
   cap:{group:true,cmp:(a,b)=>f(b,"caprank")-f(a,"caprank")||f(b,"cap")-f(a,"cap"),gkey:c=>c.dataset.caprank,glabel:k=>({"3":"大型株（3000億〜）","2":"中型株（1000〜3000億）","1":"小型株（〜1000億）","0":"対象外"}[k])},
@@ -1484,7 +1489,7 @@ function applyView(animate=true){
 }
 const sortBtn=document.getElementById("sortBtn"),sortMenu=document.getElementById("sortMenu");
 const filterBtn=document.getElementById("filterBtn"),filterMenu=document.getElementById("filterMenu"),filterLabel=document.getElementById("filterLabel");
-const SORT_MENU_KEYS=new Set(["value","yield","gain","drop","hike"]);
+const SORT_MENU_KEYS=new Set(["value","yield","gain","drop","hike","receipts","level"]);
 document.querySelectorAll("[data-sort]").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("[data-sort]").forEach(x=>x.classList.remove("on"));
   b.classList.add("on");
@@ -1580,14 +1585,14 @@ function renderDetailView(){
 function bindReceiptPanel(h){
   const add=F("receiptAdd");if(add)add.onclick=()=>{receiptFormOpen=true;receiptEditingId=null;renderDetailView();};
   F("detailBody").querySelectorAll("[data-receipt-edit]").forEach(btn=>btn.onclick=()=>{receiptFormOpen=true;receiptEditingId=btn.dataset.receiptEdit;renderDetailView();});
-  F("detailBody").querySelectorAll("[data-receipt-delete]").forEach(btn=>btn.onclick=()=>{if(!confirm("この受取履歴を削除しますか？"))return;h.dividendReceipts=(h.dividendReceipts||[]).filter(x=>x.id!==btn.dataset.receiptDelete);save();renderDetailView();});
+  F("detailBody").querySelectorAll("[data-receipt-delete]").forEach(btn=>btn.onclick=()=>{if(!confirm("この受取履歴を削除しますか？"))return;h.dividendReceipts=(h.dividendReceipts||[]).filter(x=>x.id!==btn.dataset.receiptDelete);save();render();renderDetailView();});
   if(F("receiptCancel"))F("receiptCancel").onclick=()=>{receiptFormOpen=false;receiptEditingId=null;renderDetailView();};
-  if(F("receiptSave"))F("receiptSave").onclick=()=>{const date=F("receiptDate").value,amount=num(F("receiptAmount").value);if(!date||amount<=0){if(!date)F("receiptDate").style.borderColor="var(--neg)";if(amount<=0)F("receiptAmount").style.borderColor="var(--neg)";return;}const rec={id:receiptEditingId||uid(),date,amount,period:F("receiptPeriod").value.trim(),memo:F("receiptMemo").value.trim()};h.dividendReceipts=Array.isArray(h.dividendReceipts)?h.dividendReceipts:[];const i=h.dividendReceipts.findIndex(x=>x.id===receiptEditingId);if(i>=0)h.dividendReceipts[i]=rec;else h.dividendReceipts.push(rec);save();receiptFormOpen=false;receiptEditingId=null;renderDetailView();};
+  if(F("receiptSave"))F("receiptSave").onclick=()=>{const date=F("receiptDate").value,amount=num(F("receiptAmount").value);if(!date||amount<=0){if(!date)F("receiptDate").style.borderColor="var(--neg)";if(amount<=0)F("receiptAmount").style.borderColor="var(--neg)";return;}const rec={id:receiptEditingId||uid(),date,amount,period:F("receiptPeriod").value.trim(),memo:F("receiptMemo").value.trim()};h.dividendReceipts=Array.isArray(h.dividendReceipts)?h.dividendReceipts:[];const i=h.dividendReceipts.findIndex(x=>x.id===receiptEditingId);if(i>=0)h.dividendReceipts[i]=rec;else h.dividendReceipts.push(rec);save();receiptFormOpen=false;receiptEditingId=null;render();renderDetailView();};
 }
 function bindGrowthPanel(h){
   if(F("growthEdit"))F("growthEdit").onclick=()=>{growthFormOpen=true;renderDetailView();};
   if(F("growthCancel"))F("growthCancel").onclick=()=>{growthFormOpen=false;renderDetailView();};
-  if(F("growthSave"))F("growthSave").onclick=()=>{const price=num(F("growthPrice").value),div=num(F("growthDividend").value);if(price<=0||div<=0){if(price<=0)F("growthPrice").style.borderColor="var(--neg)";if(div<=0)F("growthDividend").style.borderColor="var(--neg)";return;}h.firstPurchaseDate=F("growthDate").value;h.firstPurchasePrice=price;h.firstAnnualDividend=div;save();growthFormOpen=false;renderDetailView();};
+  if(F("growthSave"))F("growthSave").onclick=()=>{const price=num(F("growthPrice").value),div=num(F("growthDividend").value);if(price<=0||div<=0){if(price<=0)F("growthPrice").style.borderColor="var(--neg)";if(div<=0)F("growthDividend").style.borderColor="var(--neg)";return;}h.firstPurchaseDate=F("growthDate").value;h.firstPurchasePrice=price;h.firstAnnualDividend=div;save();growthFormOpen=false;render();renderDetailView();};
 }
 function openDetail(id){editingId=id;detailActiveTab="overview";receiptFormOpen=false;receiptEditingId=null;growthFormOpen=false;renderDetailView();show("detailScrim");}
 function spark(values,title,mode){
