@@ -10,4 +10,4 @@ GitHub Pagesへアップロードするファイル一式です。
 注意:
 - mochikabu-*.jsonなど、保有データを書き出したJSONはGitHubへアップロードしないでください。
 - 現在のfile://版とは保存領域が別です。最初にJSONを書き出し、GitHub版で一度読み込んでください。
-- アプリを更新したらservice-worker.jsのCACHE_NAME末尾（v1）をv2、v3と増やしてください。
+- アプリを更新したらservice-worker.jsのCACHE_NAME末尾（現在はv4）をv5、v6と増やしてください。

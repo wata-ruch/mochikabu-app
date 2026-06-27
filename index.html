@@ -532,6 +532,61 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .detail-yoc strong em{font-size:13px;font-style:normal;margin-left:1px}
 .detail-yoc span{display:block;margin-top:4px;color:var(--muted);font-family:var(--numfont);font-size:9px;white-space:nowrap}
 .detail-sparks:empty{display:none}
+#detailScrim .modal{max-width:720px}
+.detail-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin:8px 0 9px;padding:3px;border:1px solid var(--line);border-radius:9px;background:color-mix(in srgb,var(--panel3) 72%,transparent)}
+.detail-tab{min-width:0;padding:7px 8px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:11.5px;font-weight:700;transition:.15s}
+.detail-tab:hover{color:var(--ink);background:var(--control)}
+.detail-tab.on{color:var(--accent-ink);background:linear-gradient(145deg,var(--accent),var(--accent2));box-shadow:0 4px 12px -8px var(--accent)}
+.detail-panel{animation:detailPanelIn .18s ease-out}
+@keyframes detailPanelIn{from{opacity:.35;transform:translateY(3px)}to{opacity:1;transform:none}}
+.detail-empty{padding:24px 14px;border:1px dashed var(--line);border-radius:10px;text-align:center;color:var(--muted)}
+.detail-empty strong{display:block;margin-bottom:5px;color:var(--ink);font-size:14px}
+.receipt-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:6px;align-items:stretch;margin-bottom:8px}
+.receipt-stat{padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--panel2) 68%,transparent)}
+.receipt-stat span{display:block;color:var(--muted);font-size:9px}
+.receipt-stat b{display:block;margin-top:2px;color:var(--ink);font-family:var(--numfont);font-size:14px;white-space:nowrap}
+.receipt-stat.accent b{color:var(--accent)}
+.receipt-add{align-self:stretch;padding:0 12px}
+.receipt-form,.growth-form{padding:9px;margin-bottom:9px;border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));border-radius:9px;background:color-mix(in srgb,var(--accent) 6%,var(--panel2))}
+.receipt-form-grid{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:6px}
+.receipt-form .field.full,.growth-form .field.full{grid-column:1/-1}
+.detail-form-actions{display:flex;justify-content:flex-end;gap:6px;margin-top:7px}
+.receipt-bars{display:flex;align-items:flex-end;gap:7px;height:92px;margin:3px 0 10px;padding:9px 10px 4px;border:1px solid var(--line);border-radius:9px;background:color-mix(in srgb,var(--panel3) 62%,transparent)}
+.receipt-baritem{display:flex;flex:1;min-width:0;height:100%;flex-direction:column;align-items:center;justify-content:flex-end;gap:3px}
+.receipt-baritem b{color:var(--ink);font-family:var(--numfont);font-size:8.5px;white-space:nowrap}
+.receipt-baritem i{display:block;width:min(24px,70%);min-height:3px;border-radius:4px 4px 1px 1px;background:linear-gradient(180deg,var(--accent),var(--accent2));box-shadow:0 0 9px color-mix(in srgb,var(--accent) 22%,transparent)}
+.receipt-baritem span{color:var(--muted);font-family:var(--numfont);font-size:8.5px}
+.receipt-list{display:grid;gap:5px;max-height:250px;overflow:auto;padding-right:2px}
+.receipt-year{display:flex;align-items:center;gap:7px;margin-top:4px;color:var(--muted);font-family:var(--numfont);font-size:9px;font-weight:700}
+.receipt-year::after{content:"";height:1px;flex:1;background:var(--line)}
+.receipt-row{display:grid;grid-template-columns:74px minmax(0,1fr) auto auto;gap:7px;align-items:center;padding:7px 8px;border:1px solid color-mix(in srgb,var(--line) 76%,transparent);border-radius:8px;background:color-mix(in srgb,var(--panel2) 56%,transparent)}
+.receipt-date{color:var(--muted);font-family:var(--numfont);font-size:9.5px}
+.receipt-info{min-width:0}
+.receipt-info b{display:block;color:var(--ink);font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.receipt-info small{display:block;margin-top:1px;color:var(--muted);font-size:8.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.receipt-amount{color:var(--accent);font-family:var(--numfont);font-size:13px;font-weight:800;white-space:nowrap}
+.receipt-actions{display:flex;gap:3px}
+.receipt-actions button{padding:3px 6px;border:1px solid var(--line);border-radius:5px;background:var(--control);color:var(--muted);font-size:9px}
+.receipt-actions button:hover{color:var(--ink);border-color:var(--accent)}
+.growth-hero{position:relative;overflow:hidden;padding:12px;border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:11px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 9%,var(--panel2)),var(--panel));box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.growth-hero::after{content:"";position:absolute;right:-54px;top:-70px;width:150px;height:150px;border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);border-radius:50%}
+.growth-kicker{color:var(--accent);font-family:var(--numfont);font-size:8.5px;font-weight:800;letter-spacing:1.4px}
+.growth-route{position:relative;z-index:1;display:grid;grid-template-columns:1fr 54px 1fr;align-items:center;gap:7px;margin-top:8px}
+.growth-node{padding:9px;border:1px solid var(--line);border-radius:9px;background:color-mix(in srgb,var(--panel) 80%,transparent)}
+.growth-node.current{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));box-shadow:0 0 16px -10px var(--accent)}
+.growth-node span{display:block;color:var(--muted);font-size:9px}
+.growth-node strong{display:block;margin-top:3px;color:var(--ink);font-family:var(--numfont);font-size:23px;line-height:1}
+.growth-node.current strong{color:var(--accent)}
+.growth-node strong small{font-size:11px}
+.growth-node em{display:block;margin-top:4px;color:var(--muted);font-family:var(--numfont);font-size:8.5px;font-style:normal}
+.growth-arrow{text-align:center;color:var(--accent);font-family:var(--numfont);font-size:20px;font-weight:800}
+.growth-arrow small{display:block;margin-top:2px;font-size:8px;white-space:nowrap}
+.growth-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.growth-stat{padding:7px 8px;border-top:2px solid var(--accent);background:color-mix(in srgb,var(--panel2) 68%,transparent);border-radius:0 0 7px 7px}
+.growth-stat span{display:block;color:var(--muted);font-size:8.5px}
+.growth-stat b{display:block;margin-top:2px;color:var(--ink);font-family:var(--numfont);font-size:13px;white-space:nowrap}
+.growth-tools{display:flex;justify-content:flex-end;margin-top:8px}
+@media(max-width:520px){.receipt-top{grid-template-columns:repeat(3,minmax(0,1fr))}.receipt-add{grid-column:1/-1;padding:7px}.receipt-form-grid{grid-template-columns:1fr}.receipt-form .field.full{grid-column:auto}.receipt-row{grid-template-columns:65px minmax(0,1fr) auto}.receipt-actions{grid-column:2/4;justify-content:flex-end}.growth-route{grid-template-columns:1fr 34px 1fr}.growth-node strong{font-size:19px}.growth-stats{grid-template-columns:1fr 1fr}.growth-stat:last-child{grid-column:1/-1}}
 .rarbadge{display:inline-block;font-family:var(--numfont);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:6px;margin-top:6px;border:1px solid currentColor}
 .reasons{margin:0 0 7px;border-radius:11px;padding:7px 10px}
 .reasons.buy{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3)}
@@ -1473,41 +1528,59 @@ function restoreViewUI(){
   syncFilterUI();
 }
 
-function openDetail(id){
-  const h=data.find(x=>x.id===id);if(!h)return;const d=derive(h);editingId=id;
+let detailActiveTab="overview",receiptFormOpen=false,receiptEditingId=null,growthFormOpen=false;
+function detailHeaderHTML(h,d){
+  const yocMain=d.hasYield?d.netYoc.toFixed(2):"—",yocSub=d.hasYield?(d.account==="NISA"?"非課税":`税引前 ${d.grossYoc.toFixed(2)}%`):"配当なし";
+  return `<div class="dh">${iconHTML(h,54)}<div class="dhmain"><div class="nm" style="color:var(--ink)">${esc(h.name)}</div><div class="meta">${esc(h.code)} · ${esc(h.sector)}</div></div><div class="detail-yoc" style="--dyc:${d.tier.color}"><small>取得利回り</small><strong>${yocMain}${d.hasYield?"<em>%</em>":""}</strong><span>${yocSub}</span></div></div>`;
+}
+function overviewPanelHTML(h,d){
   const items=[];
   if(d.manualSet)items.push(`手動指定：${esc(h.manualStatus)}`);
   if(d.autoFlag==="buy"||d.autoFlag==="sell")d.reasons.forEach(r=>items.push(esc(r)));
   if(d.memo)items.push(`メモ：${esc(d.memo)}`);
-  const showBlock=d.flag==="buy"||d.flag==="sell"||!!d.memo;
-  const blockCls=d.flag==="buy"?"buy":d.flag==="sell"?"sell":"note";
-  const blockTitle=d.flag==="buy"?"買い増し候補":d.flag==="sell"?"見直し候補":"メモ";
+  const showBlock=d.flag==="buy"||d.flag==="sell"||!!d.memo,blockCls=d.flag==="buy"?"buy":d.flag==="sell"?"sell":"note",blockTitle=d.flag==="buy"?"買い増し候補":d.flag==="sell"?"見直し候補":"メモ";
   const reasonBlock=showBlock&&items.length?`<div class="reasons ${blockCls}"><div class="rt">${blockTitle}</div><ul>${items.map(i=>`<li>${i}</li>`).join("")}</ul></div>`:"";
   const sparks=spark(d.divHistory,"配当/分配金推移","cagr")+spark(h.eps,"EPS推移","cagr");
   const yldTxt=d.hasYield?(d.account==="NISA"?`${d.netYld.toFixed(2)}%（非課税）`:`${d.netYld.toFixed(2)}%（税引前 ${d.grossYld.toFixed(2)}%）`):"—";
-  const rows=[
-    ["口座区分",d.account],["分類",h.cls],
-    ["現在株価 / 基準価額",yen(h.price)],["取得単価",yen(h.cost)],
-    ["保有株数 / 口数",`${h.shares.toLocaleString()}${qtyUnit(h)}`],["評価額",yen(d.value)],
-    ["取得総額",yen(d.cost)],["含み損益",`<span class="${d.gain>=0?"pos":"neg"}">${yenS(d.gain)}（${sg(d.gainPct)}）</span>`],
-    ["年間収入（税引前）",d.hasYield?yen(d.annDiv):"—"],["年間収入（手取り）",d.hasYield?yen(d.annDivNet):"—"],
-    ...(d.saleOn?[["定率売却率（税引前）",d.SR+"%"],["売却益への税額（概算・年）",d.account==="NISA"?"非課税":yen(d.saleTax)]]:[]),
-    ["現在利回り",yldTxt],
-    ["増配率",d.hasDiv&&!d.saleOn?sg(d.effHike,1)+(d.hikeFromCagr?"（年率）":""):"—"],["直近高値",yen(h.high)],
-    ["高値からの下落率",`<span class="${d.drop>=15?'neg':''}" style="${d.drop>=20?'font-weight:800':d.drop>=15?'font-weight:700':''}">-${d.drop.toFixed(1)}%</span>`],["決算頻度 / 決算月",monthLabel(h.month)],
-    ["配当性向",h.payout?h.payout+"%":"—"],["自己資本比率",h.equity?h.equity+"%":"—"],
-    ["時価総額",h.cap?h.cap.toLocaleString()+" 億円":"—"],
-    ["収入源",d.saleOn?`定率売却 ${d.SR}%/年`:"配当・分配金"],
-  ];
-  const yocMain=d.hasYield?d.netYoc.toFixed(2):"—",yocSub=d.hasYield?(d.account==="NISA"?"非課税":`税引前 ${d.grossYoc.toFixed(2)}%`):"配当なし";
-  document.getElementById("detailBody").innerHTML=`
-    <div class="dh">${iconHTML(h,54)}<div class="dhmain"><div class="nm" style="color:var(--ink)">${esc(h.name)}</div><div class="meta">${esc(h.code)} · ${esc(h.sector)}</div></div><div class="detail-yoc" style="--dyc:${d.tier.color}"><small>取得利回り</small><strong>${yocMain}${d.hasYield?"<em>%</em>":""}</strong><span>${yocSub}</span></div></div>
-    ${reasonBlock}
-    <div class="detail-sparks">${sparks}</div>
-    <div class="dtable">${rows.map(r=>`<div class="dcell"><div class="k">${r[0]}</div><div class="v">${r[1]}</div></div>`).join("")}
-      <div class="dcell full"><div class="k">株主優待</div><div class="v" style="font-family:'Noto Sans JP';font-size:13px">${esc(h.benefit)||"—"}</div></div></div>`;
-  show("detailScrim");
+  const rows=[["口座区分",d.account],["分類",h.cls],["現在株価 / 基準価額",yen(h.price)],["取得単価",yen(h.cost)],["保有株数 / 口数",`${h.shares.toLocaleString()}${qtyUnit(h)}`],["評価額",yen(d.value)],["取得総額",yen(d.cost)],["含み損益",`<span class="${d.gain>=0?"pos":"neg"}">${yenS(d.gain)}（${sg(d.gainPct)}）</span>`],["年間収入（税引前）",d.hasYield?yen(d.annDiv):"—"],["年間収入（手取り）",d.hasYield?yen(d.annDivNet):"—"],...(d.saleOn?[["定率売却率（税引前）",d.SR+"%"],["売却益への税額（概算・年）",d.account==="NISA"?"非課税":yen(d.saleTax)]]:[]),["現在利回り",yldTxt],["増配率",d.hasDiv&&!d.saleOn?sg(d.effHike,1)+(d.hikeFromCagr?"（年率）":""):"—"],["直近高値",yen(h.high)],["高値からの下落率",`<span class="${d.drop>=15?'neg':''}" style="${d.drop>=20?'font-weight:800':d.drop>=15?'font-weight:700':''}">-${d.drop.toFixed(1)}%</span>`],["決算頻度 / 決算月",monthLabel(h.month)],["配当性向",h.payout?h.payout+"%":"—"],["自己資本比率",h.equity?h.equity+"%":"—"],["時価総額",h.cap?h.cap.toLocaleString()+" 億円":"—"],["収入源",d.saleOn?`定率売却 ${d.SR}%/年`:"配当・分配金"]];
+  return `${reasonBlock}<div class="detail-sparks">${sparks}</div><div class="dtable">${rows.map(r=>`<div class="dcell"><div class="k">${r[0]}</div><div class="v">${r[1]}</div></div>`).join("")}<div class="dcell full"><div class="k">株主優待</div><div class="v" style="font-family:'Noto Sans JP';font-size:13px">${esc(h.benefit)||"—"}</div></div></div>`;
 }
+function receiptPanelHTML(h){
+  const receipts=Array.isArray(h.dividendReceipts)?[...h.dividendReceipts]:[],sorted=receipts.sort((a,b)=>String(b.date||"").localeCompare(String(a.date||""))),currentYear=String(new Date().getFullYear()),total=sorted.reduce((s,x)=>s+num(x.amount),0),yearTotal=sorted.filter(x=>String(x.date||"").slice(0,4)===currentYear).reduce((s,x)=>s+num(x.amount),0),byYear={};
+  sorted.forEach(x=>{const y=String(x.date||"").slice(0,4)||"未設定";byYear[y]=(byYear[y]||0)+num(x.amount);});
+  const years=Object.keys(byYear).sort(),maxYear=Math.max(...Object.values(byYear),1),bars=years.length?`<div class="receipt-bars">${years.map(y=>`<div class="receipt-baritem"><b>${compactYen(byYear[y])}</b><i style="height:${Math.max(byYear[y]/maxYear*58,3).toFixed(1)}px"></i><span>${y}</span></div>`).join("")}</div>`:"";
+  let lastYear="";const list=sorted.map(x=>{const y=String(x.date||"").slice(0,4)||"未設定",head=y!==lastYear?`<div class="receipt-year">${lastYear=y}年</div>`:"";return `${head}<div class="receipt-row"><span class="receipt-date">${esc(String(x.date||"—").replaceAll("-","/"))}</span><div class="receipt-info"><b>${esc(x.period||"配当・分配金")}</b><small>${esc(x.memo||"")}</small></div><strong class="receipt-amount">${yen(num(x.amount))}</strong><span class="receipt-actions"><button type="button" data-receipt-edit="${esc(x.id)}">修正</button><button type="button" data-receipt-delete="${esc(x.id)}">削除</button></span></div>`;}).join("");
+  const editing=receiptEditingId?receipts.find(x=>x.id===receiptEditingId):null,defaultDate=new Date().toLocaleDateString("sv-SE");
+  const form=receiptFormOpen?`<div class="receipt-form"><div class="receipt-form-grid"><div class="field"><label>受取日</label><input id="receiptDate" type="date" value="${esc(editing?.date||defaultDate)}"></div><div class="field"><label>受取額（税引き後）</label><div class="unitinput"><input id="receiptAmount" type="number" inputmode="decimal" min="0" value="${editing?num(editing.amount):""}"><span class="unit">円</span></div></div><div class="field"><label>対象期間</label><input id="receiptPeriod" value="${esc(editing?.period||"")}" placeholder="例: 2026年3月期 期末"></div><div class="field full"><label>メモ</label><input id="receiptMemo" value="${esc(editing?.memo||"")}" placeholder="任意"></div></div><div class="detail-form-actions"><button class="btn" type="button" id="receiptCancel">キャンセル</button><button class="btn primary" type="button" id="receiptSave">${editing?"更新":"追加"}</button></div></div>`:"";
+  return `<div class="receipt-top"><div class="receipt-stat accent"><span>累計受取額</span><b>${yen(total)}</b></div><div class="receipt-stat"><span>${currentYear}年</span><b>${yen(yearTotal)}</b></div><div class="receipt-stat"><span>受取回数</span><b>${sorted.length}回</b></div><button type="button" class="btn primary receipt-add" id="receiptAdd">＋ 受取追加</button></div>${form}${bars}${sorted.length?`<div class="receipt-list">${list}</div>`:`<div class="detail-empty"><strong>受取履歴はまだありません</strong>配当金を受け取ったら記録を追加できます。</div>`}`;
+}
+function growthPanelHTML(h,d){
+  const firstPrice=num(h.firstPurchasePrice),firstDiv=num(h.firstAnnualDividend),ready=firstPrice>0&&firstDiv>0,currentDiv=num(d.effDiv),firstYield=ready?firstDiv/firstPrice*100:0,currentYield=ready?currentDiv/firstPrice*100:0,point=currentYield-firstYield,growth=ready&&firstDiv?currentDiv/firstDiv*100-100:0;
+  const form=growthFormOpen?`<div class="growth-form"><div class="receipt-form-grid"><div class="field"><label>初回購入日</label><input id="growthDate" type="date" value="${esc(h.firstPurchaseDate||"")}"></div><div class="field"><label>初回購入価格</label><div class="unitinput"><input id="growthPrice" type="number" inputmode="decimal" min="0" value="${firstPrice||h.cost||""}"><span class="unit">円</span></div></div><div class="field"><label>当時の年間配当</label><div class="unitinput"><input id="growthDividend" type="number" inputmode="decimal" min="0" value="${firstDiv||(d.divHistory?.[0]||"")}"><span class="unit">円</span></div></div></div><div class="help" style="margin-top:6px">利回りは税引前で計算します。年間配当は1株・1口あたりを入力してください。</div><div class="detail-form-actions"><button class="btn" type="button" id="growthCancel">キャンセル</button><button class="btn primary" type="button" id="growthSave">保存</button></div></div>`:"";
+  if(!ready&&!growthFormOpen)return `<div class="detail-empty"><strong>初回購入情報を登録</strong>購入当時の価格と年間配当を記録すると、増配による利回り成長を表示できます。<div style="margin-top:10px"><button type="button" class="btn primary" id="growthEdit">初回情報を登録</button></div></div>`;
+  if(growthFormOpen)return form;
+  return `<div class="growth-hero"><div class="growth-kicker">DIVIDEND GROWTH RECORD</div><div class="growth-route"><div class="growth-node"><span>INITIAL YIELD（税引前）</span><strong>${firstYield.toFixed(2)}<small>%</small></strong><em>${h.firstPurchaseDate?esc(h.firstPurchaseDate.replaceAll("-","/")):"初回購入時"}</em></div><div class="growth-arrow">→<small class="${point>=0?"pos":"neg"}">${point>=0?"+":""}${point.toFixed(2)}pt</small></div><div class="growth-node current"><span>CURRENT ON INITIAL COST</span><strong>${currentYield.toFixed(2)}<small>%</small></strong><em>現在配当 ÷ 初回価格</em></div></div><div class="growth-stats"><div class="growth-stat"><span>配当増加率</span><b class="${growth>=0?"pos":"neg"}">${growth>=0?"+":""}${growth.toFixed(1)}%</b></div><div class="growth-stat"><span>年間配当の変化</span><b>${yen(firstDiv)} → ${yen(currentDiv)}</b></div><div class="growth-stat"><span>初回購入価格</span><b>${yen(firstPrice)}</b></div></div><div class="growth-tools"><button type="button" class="btn" id="growthEdit">初回情報を編集</button></div></div>`;
+}
+function renderDetailView(){
+  const h=data.find(x=>x.id===editingId);if(!h)return;const d=derive(h),tabs=[{key:"overview",label:"概要"},{key:"receipts",label:"配当履歴"},{key:"growth",label:"増配成長"}],panel=detailActiveTab==="receipts"?receiptPanelHTML(h):detailActiveTab==="growth"?growthPanelHTML(h,d):overviewPanelHTML(h,d);
+  F("detailBody").innerHTML=`${detailHeaderHTML(h,d)}<div class="detail-tabs" role="tablist">${tabs.map(t=>`<button type="button" class="detail-tab ${detailActiveTab===t.key?"on":""}" data-detail-tab="${t.key}" aria-selected="${detailActiveTab===t.key}">${t.label}</button>`).join("")}</div><div class="detail-panel">${panel}</div>`;
+  F("detailBody").querySelectorAll("[data-detail-tab]").forEach(btn=>btn.onclick=()=>{detailActiveTab=btn.dataset.detailTab;receiptFormOpen=false;receiptEditingId=null;growthFormOpen=false;renderDetailView();});
+  if(detailActiveTab==="receipts")bindReceiptPanel(h);
+  if(detailActiveTab==="growth")bindGrowthPanel(h);
+}
+function bindReceiptPanel(h){
+  const add=F("receiptAdd");if(add)add.onclick=()=>{receiptFormOpen=true;receiptEditingId=null;renderDetailView();};
+  F("detailBody").querySelectorAll("[data-receipt-edit]").forEach(btn=>btn.onclick=()=>{receiptFormOpen=true;receiptEditingId=btn.dataset.receiptEdit;renderDetailView();});
+  F("detailBody").querySelectorAll("[data-receipt-delete]").forEach(btn=>btn.onclick=()=>{if(!confirm("この受取履歴を削除しますか？"))return;h.dividendReceipts=(h.dividendReceipts||[]).filter(x=>x.id!==btn.dataset.receiptDelete);save();renderDetailView();});
+  if(F("receiptCancel"))F("receiptCancel").onclick=()=>{receiptFormOpen=false;receiptEditingId=null;renderDetailView();};
+  if(F("receiptSave"))F("receiptSave").onclick=()=>{const date=F("receiptDate").value,amount=num(F("receiptAmount").value);if(!date||amount<=0){if(!date)F("receiptDate").style.borderColor="var(--neg)";if(amount<=0)F("receiptAmount").style.borderColor="var(--neg)";return;}const rec={id:receiptEditingId||uid(),date,amount,period:F("receiptPeriod").value.trim(),memo:F("receiptMemo").value.trim()};h.dividendReceipts=Array.isArray(h.dividendReceipts)?h.dividendReceipts:[];const i=h.dividendReceipts.findIndex(x=>x.id===receiptEditingId);if(i>=0)h.dividendReceipts[i]=rec;else h.dividendReceipts.push(rec);save();receiptFormOpen=false;receiptEditingId=null;renderDetailView();};
+}
+function bindGrowthPanel(h){
+  if(F("growthEdit"))F("growthEdit").onclick=()=>{growthFormOpen=true;renderDetailView();};
+  if(F("growthCancel"))F("growthCancel").onclick=()=>{growthFormOpen=false;renderDetailView();};
+  if(F("growthSave"))F("growthSave").onclick=()=>{const price=num(F("growthPrice").value),div=num(F("growthDividend").value);if(price<=0||div<=0){if(price<=0)F("growthPrice").style.borderColor="var(--neg)";if(div<=0)F("growthDividend").style.borderColor="var(--neg)";return;}h.firstPurchaseDate=F("growthDate").value;h.firstPurchasePrice=price;h.firstAnnualDividend=div;save();growthFormOpen=false;renderDetailView();};
+}
+function openDetail(id){editingId=id;detailActiveTab="overview";receiptFormOpen=false;receiptEditingId=null;growthFormOpen=false;renderDetailView();show("detailScrim");}
 function spark(values,title,mode){
   if(!values||values.length<2)return "";
   const w=300,hh=58,p=5,min=Math.min(...values),max=Math.max(...values),rng=max-min||1;
@@ -1577,7 +1650,8 @@ F("btnSave").onclick=()=>{
   const divHistory=F("f_divhist").value.split(",").map(x=>parseFloat(x.trim())).filter(x=>!isNaN(x));
   let divVal=divHistory.length?divHistory[divHistory.length-1]:num(F("f_div").value);
   if(divInputEdited){divVal=num(F("f_div").value);if(divHistory.length)divHistory[divHistory.length-1]=divVal;}
-  const rec={id:editingId||uid(),code:F("f_code").value.trim(),name,sector:F("f_sector").value.trim(),cls:F("f_class").value,account:F("f_account").value,
+  const prior=editingId?data.find(x=>x.id===editingId)||{}:{};
+  const rec={...prior,id:editingId||uid(),code:F("f_code").value.trim(),name,sector:F("f_sector").value.trim(),cls:F("f_class").value,account:F("f_account").value,
     price:num(F("f_price").value),cost:num(F("f_cost").value),shares:num(F("f_shares").value),high:num(F("f_high").value)||num(F("f_price").value),
     div:divVal,hike:num(F("f_hike").value),saleRate:num(F("f_saleRate").value),divHistory,month:parseInt(F("f_month").value)||0,payout:num(F("f_payout").value),
     equity:num(F("f_equity").value),cap:num(F("f_cap").value),eps,benefit:F("f_benefit").value.trim(),memo:F("f_memo").value.trim(),manualStatus:F("f_manual").value,logo:logoData};
