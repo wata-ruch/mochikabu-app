@@ -132,22 +132,46 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .level-sticky{--sticky-color:var(--accent2);--sticky-tilt:2.8deg;bottom:4px}
 .summary-sticky.bump{animation:stickyBump .28s cubic-bezier(.2,.8,.25,1)}
 @keyframes stickyBump{0%,100%{transform:rotate(var(--sticky-tilt)) translateY(0) scale(1)}45%{transform:rotate(0deg) translateY(-5px) scale(1.06)}}
-.gain-guide-btn{position:absolute;z-index:3;top:5px;right:7px;width:23px;height:23px;padding:0;border:1px solid color-mix(in srgb,var(--pos) 65%,var(--line));border-radius:50%;background:color-mix(in srgb,var(--pos) 12%,var(--panel2));box-shadow:0 0 12px -7px var(--pos);color:var(--pos);font-family:var(--numfont);font-size:14px;font-weight:900;line-height:21px;text-align:center;cursor:pointer;transition:.16s}
-.gain-guide-btn:hover{background:color-mix(in srgb,var(--pos) 22%,var(--panel2));transform:scale(1.06)}
+.gain-guide-btn{--guide-color:var(--pos);position:absolute;z-index:3;top:5px;right:7px;width:23px;height:23px;padding:0;border:1px solid color-mix(in srgb,var(--guide-color) 65%,var(--line));border-radius:50%;background:color-mix(in srgb,var(--guide-color) 12%,var(--panel2));box-shadow:0 0 12px -7px var(--guide-color);color:var(--guide-color);font-family:var(--numfont);font-size:14px;font-weight:900;line-height:21px;text-align:center;cursor:pointer;transition:.16s}
+.gain-guide-btn:hover{background:color-mix(in srgb,var(--guide-color) 22%,var(--panel2));transform:scale(1.06)}
 .gain-guide-btn:active{transform:scale(.92)}
 .loss-guide-modal{max-width:540px;margin:calc(env(safe-area-inset-top,0px) + 12px) auto 12px}
 .loss-guide-body{padding:12px 14px 14px}
 .loss-guide-lead{margin:0 0 11px;padding:10px 12px;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--ink);font-size:15px;font-weight:800}
 .loss-guide-intro{margin:0 0 10px;color:var(--muted);font-size:11.5px;line-height:1.65}
+.portfolio-signal{--signal:var(--pos);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;align-items:center;margin:0 0 10px;padding:10px 11px;border:1px solid color-mix(in srgb,var(--signal) 48%,var(--line));border-radius:9px;background:color-mix(in srgb,var(--signal) 8%,var(--panel2))}
+.portfolio-signal .ps-k{color:var(--muted);font-size:9px;font-weight:700}
+.portfolio-signal .ps-v{color:var(--signal);font-family:var(--numfont);font-size:24px;font-weight:900;line-height:1}
+.portfolio-signal .ps-stage{grid-row:1/3;grid-column:2;padding:5px 8px;border:1px solid currentColor;border-radius:6px;color:var(--signal);font-size:10px;font-weight:800;white-space:nowrap}
+.portfolio-signal .ps-next{grid-column:1/-1;color:var(--muted);font-size:9px}
+.portfolio-reference{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:3px}
+.portfolio-reference span{padding:5px 3px;border:1px solid var(--line);border-radius:5px;background:color-mix(in srgb,var(--panel3) 70%,transparent);text-align:center;color:var(--muted);font-size:9.5px;line-height:1.4}
+.portfolio-reference span b{display:block;color:var(--ink);font-family:var(--numfont);font-size:11px;white-space:nowrap}
+.portfolio-reference-note{grid-column:1/-1;color:var(--faint);font-size:9px;line-height:1.45}
+.portfolio-meter{grid-column:1/-1;position:relative;display:grid;grid-template-columns:15fr 5fr 5fr 5fr;height:5px;margin-top:3px;border-radius:5px;background:var(--line2);overflow:hidden}
+.portfolio-meter i{border-right:1px solid color-mix(in srgb,var(--panel) 65%,transparent);background:color-mix(in srgb,var(--faint) 22%,transparent)}
+.portfolio-meter::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--meter,0%);border-radius:5px;background:var(--signal);transition:width .25s ease}
 .loss-levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:10px}
 .loss-level{padding:8px;border:1px solid var(--line);border-top:3px solid var(--loss-color);border-radius:0 0 7px 7px;background:color-mix(in srgb,var(--panel2) 72%,transparent)}
 .loss-level b{display:block;color:var(--loss-color);font-family:var(--numfont);font-size:16px}
 .loss-level span{display:block;margin-top:3px;color:var(--muted);font-size:9px;line-height:1.4}
+.loss-level .loss-alloc{display:block;margin-top:5px;padding-top:4px;border-top:1px solid var(--line);color:var(--ink);font-size:9.5px;font-weight:800;white-space:nowrap}
+.loss-budget-note{margin:-3px 0 10px;padding:5px 8px;border-radius:6px;background:color-mix(in srgb,var(--accent) 7%,transparent);color:var(--muted);font-size:9px;line-height:1.5;text-align:center}
+.loss-budget-note b{color:var(--ink)}
 .loss-rules{display:grid;gap:6px}
 .loss-rule{display:grid;grid-template-columns:27px minmax(0,1fr);gap:8px;align-items:start;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--panel3) 72%,transparent)}
 .loss-rule i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--numfont);font-size:10px;font-style:normal;font-weight:800}
 .loss-rule strong{display:block;color:var(--ink);font-size:11.5px}
 .loss-rule small{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;line-height:1.5}
+.individual-watch{margin:0 0 10px}
+.individual-watch-head{display:flex;align-items:center;gap:7px;margin-bottom:5px;color:var(--ink);font-size:10.5px;font-weight:800}
+.individual-watch-head::after{content:"";height:1px;flex:1;background:var(--line)}
+.individual-watch-list{display:grid;gap:4px;max-height:142px;overflow:auto;padding-right:2px}
+.individual-watch-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:center;padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:color-mix(in srgb,var(--panel3) 68%,transparent)}
+.individual-watch-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-size:10px}
+.individual-watch-row b{color:var(--row-color);font-family:var(--numfont);font-size:12px}
+.individual-watch-row em{padding:2px 5px;border:1px solid currentColor;border-radius:4px;color:var(--row-color);font-size:8.5px;font-style:normal;font-weight:800;white-space:nowrap}
+.individual-watch-empty{padding:8px;border:1px dashed var(--line);border-radius:7px;color:var(--muted);font-size:10px;text-align:center}
 @media(max-width:420px){.loss-levels{gap:4px}.loss-level{padding:7px 5px}.loss-level b{font-size:14px}.loss-level span{font-size:8.5px}}
 
 .section-h{display:flex;align-items:center;gap:9px;margin:8px 0 5px}
@@ -867,12 +891,15 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
   <div class="mh"><h3>含み損時の行動ルール</h3><button class="x" data-close>&times;</button></div>
   <div class="loss-guide-body">
     <p class="loss-guide-lead">マイナスになったら、まず待つ。</p>
+    <div id="portfolioDrawdownPanel"></div>
     <p class="loss-guide-intro">下落だけを理由に急いで動かない。待機資金から追加するのは、事前に決めた金額と段階だけ。</p>
     <div class="loss-levels" aria-label="段階的な追加投資">
-      <div class="loss-level" style="--loss-color:#e5a84f"><b>-20%</b><span>追加を開始<br>決めた金額だけ</span></div>
-      <div class="loss-level" style="--loss-color:#e47f68"><b>-25%</b><span>投入額を<br>一段厚くする</span></div>
-      <div class="loss-level" style="--loss-color:#d85f75"><b>-30%</b><span>最も厚い段階<br>余力は残す</span></div>
+      <div class="loss-level" style="--loss-color:#e5a84f"><b>-20%</b><span>追加を開始<br>決めた金額だけ</span><strong class="loss-alloc">待機資金 15%</strong></div>
+      <div class="loss-level" style="--loss-color:#e47f68"><b>-25%</b><span>投入額を<br>一段厚くする</span><strong class="loss-alloc">待機資金 25%</strong></div>
+      <div class="loss-level" style="--loss-color:#d85f75"><b>-30%</b><span>最も厚い段階<br>余力は残す</span><strong class="loss-alloc">待機資金 35%</strong></div>
     </div>
+    <div class="loss-budget-note">下落開始時点の待機資金を基準に<b>合計75%</b>を投入し、<b>25%</b>は想定外の下落に備えて残す。</div>
+    <div id="individualDrawdownPanel"></div>
     <div class="loss-rules">
       <div class="loss-rule"><i>15</i><div><strong>-15%以上の下落から準備</strong><small>待機資金のうち、事前に決めた追加枠だけを使う。</small></div></div>
       <div class="loss-rule"><i>株</i><div><strong>個別株は条件を確認</strong><small>業績と配当維持を確認できる銘柄だけを買う。</small></div></div>
@@ -1032,7 +1059,7 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 
 <script>
 "use strict";
-const KEY="mochikabu_v1", TKEY="mochikabu_targets_v1", VKEY="mochikabu_view_v2", RKEY="mochikabu_rules_v1", THKEY="mochikabu_theme_v1", DIVTARGETKEY="mochikabu_dividend_target_v1", INVESTTARGETKEY="mochikabu_investment_target_v1", RESERVERATIOKEY="mochikabu_reserve_ratio_v1", EMERGENCYFUNDKEY="mochikabu_emergency_fund_v1";
+const KEY="mochikabu_v1", TKEY="mochikabu_targets_v1", VKEY="mochikabu_view_v2", RKEY="mochikabu_rules_v1", THKEY="mochikabu_theme_v1", DIVTARGETKEY="mochikabu_dividend_target_v1", INVESTTARGETKEY="mochikabu_investment_target_v1", RESERVERATIOKEY="mochikabu_reserve_ratio_v1", EMERGENCYFUNDKEY="mochikabu_emergency_fund_v1", PINDEXKEY="mochikabu_portfolio_index_v1";
 const DEF_RULES={buyDrop:15,buyPayoutMax:70,buyEquityMin:25,sellPayout:80,sellEquity:20,sellOnCut:true,sellOnRecentCut:false,fundBuyDrop:8,fundTakoYield:7,otherBuyDrop:12};
 const TAX=0.79685;
 const yen=n=>"¥"+Math.round(n).toLocaleString("ja-JP");
@@ -1067,7 +1094,7 @@ const useUnitPricePer10k=h=>h&&!isFourCharListedCode(h);
 const qtyFactor=h=>useUnitPricePer10k(h)?10000:1;
 const qtyUnit=h=>useUnitPricePer10k(h)?"口":"株";
 
-let data=load(), targets=loadTargets(), view=loadView(), RULES=loadRules(), divTarget=loadDivTarget(), investmentTarget=loadInvestmentTarget(), reserveRatio=loadReserveRatio(), emergencyFund=loadEmergencyFund(), editingId=null;
+let data=load(), targets=loadTargets(), view=loadView(), RULES=loadRules(), divTarget=loadDivTarget(), investmentTarget=loadInvestmentTarget(), reserveRatio=loadReserveRatio(), emergencyFund=loadEmergencyFund(), portfolioIndexState=loadPortfolioIndexState(), editingId=null;
 function loadRules(){try{const r=JSON.parse(localStorage.getItem(RKEY));if(r)return Object.assign({},DEF_RULES,r);}catch(e){}return {...DEF_RULES};}
 function saveRules(){localStorage.setItem(RKEY,JSON.stringify(RULES));}
 let compact=localStorage.getItem("mochikabu_compact_v1")==="1";
@@ -1077,6 +1104,8 @@ function loadDivTarget(){const v=num(localStorage.getItem(DIVTARGETKEY));return 
 function loadInvestmentTarget(){const v=num(localStorage.getItem(INVESTTARGETKEY));return v>0?v:0;}
 function loadReserveRatio(){const raw=localStorage.getItem(RESERVERATIOKEY);return raw===null?15:Math.min(Math.max(num(raw),0),100);}
 function loadEmergencyFund(){const raw=localStorage.getItem(EMERGENCYFUNDKEY);return raw===null?1200000:Math.max(num(raw),0);}
+function loadPortfolioIndexState(){try{const r=JSON.parse(localStorage.getItem(PINDEXKEY));if(r&&Number.isFinite(r.index)&&Number.isFinite(r.peak))return r;}catch(e){}return null;}
+function savePortfolioIndexState(){if(portfolioIndexState)localStorage.setItem(PINDEXKEY,JSON.stringify(portfolioIndexState));else localStorage.removeItem(PINDEXKEY);}
 function loadView(){try{const r=JSON.parse(localStorage.getItem(VKEY));if(r)return r;}catch(e){}return {sort:"class",fclass:"all",fflag:null};}
 function save(){localStorage.setItem(KEY,JSON.stringify(data));}
 function saveTargets(){localStorage.setItem(TKEY,JSON.stringify(targets));}
@@ -1197,6 +1226,42 @@ function incomeLevel(h,d){
   const firstPrice=num(h.firstPurchasePrice),firstDiv=num(h.firstAnnualDividend),firstYield=firstPrice>0&&firstDiv>0?firstDiv/firstPrice*100:0;
   return firstYield>0&&Number.isFinite(d.grossYoc)?d.grossYoc/firstYield*100-100:null;
 }
+function drawdownStage(drop){
+  if(drop>=30)return {label:"追加投資 3",color:"#d85f75",next:"最も厚い段階。待機資金の余力を必ず残す"};
+  if(drop>=25)return {label:"追加投資 2",color:"#e47f68",next:"次の段階は高値比 -30%"};
+  if(drop>=20)return {label:"追加投資 1",color:"#e5a84f",next:"次の段階は高値比 -25%"};
+  if(drop>=15)return {label:"準備",color:"#d5a643",next:"高値比 -20%で追加投資を開始"};
+  return {label:"待機",color:"var(--pos)",next:"高値比 -15%までは急いで動かない"};
+}
+function updatePortfolioIndex(value,cost,peakValue){
+  if(value<=0)return {index:100,peak:100,drop:0};
+  if(!portfolioIndexState||!(portfolioIndexState.lastValue>0)){
+    const start=peakValue>0?Math.min(value/peakValue*100,100):100;
+    portfolioIndexState={index:start,peak:100,lastValue:value,lastCost:cost,updatedAt:new Date().toISOString()};
+  }else if(Math.abs(value-portfolioIndexState.lastValue)>.01||Math.abs(cost-portfolioIndexState.lastCost)>.01){
+    const flow=cost-portfolioIndexState.lastCost,adjustedValue=value-flow;
+    if(portfolioIndexState.lastValue>0&&adjustedValue>0){
+      const factor=adjustedValue/portfolioIndexState.lastValue;
+      if(Number.isFinite(factor)&&factor>0)portfolioIndexState.index*=factor;
+    }
+    portfolioIndexState.peak=Math.max(portfolioIndexState.peak,portfolioIndexState.index);
+    portfolioIndexState.lastValue=value;portfolioIndexState.lastCost=cost;portfolioIndexState.updatedAt=new Date().toISOString();
+  }
+  savePortfolioIndexState();
+  return {...portfolioIndexState,drop:portfolioIndexState.peak>0?Math.max((portfolioIndexState.peak-portfolioIndexState.index)/portfolioIndexState.peak*100,0):0};
+}
+function renderLossGuide(portfolioIndex,value,cost){
+  const portfolioDrop=portfolioIndex.drop;
+  const overall=drawdownStage(portfolioDrop),meter=Math.min(portfolioDrop/30*100,100);
+  const reference=[20,25,30].map(threshold=>{const targetIndex=portfolioIndex.peak*(1-threshold/100),factor=portfolioIndex.index>0?targetIndex/portfolioIndex.index:0,targetValue=value*factor,targetGain=cost>0?(targetValue-cost)/cost*100:null;return {threshold,targetGain};});
+  const referenceHTML=`<div class="portfolio-reference">${reference.map(x=>`<span>全体 -${x.threshold}%<b>${x.targetGain==null?"—":`損益 ${sg(x.targetGain,1)}`}</b></span>`).join("")}<div class="portfolio-reference-note">追加投資なし・全銘柄が同じ割合で動いた場合の参考値</div></div>`;
+  const panel=F("portfolioDrawdownPanel");
+  if(panel)panel.innerHTML=`<div class="portfolio-signal" style="--signal:${overall.color};--meter:${meter.toFixed(1)}%"><div class="ps-k">全体高値からの下落（入金調整済み）</div><div class="ps-v">-${portfolioDrop.toFixed(1)}%</div><div class="ps-stage">${overall.label}</div><div class="portfolio-meter"><i></i><i></i><i></i><i></i></div><div class="ps-next">${overall.next}</div>${referenceHTML}</div>`;
+  const candidates=data.map(h=>{const d=derive(h);return {h,d,stage:drawdownStage(d.drop)};}).filter(x=>x.d.drop>=15).sort((a,b)=>b.d.drop-a.d.drop);
+  const watch=F("individualDrawdownPanel");
+  if(watch)watch.innerHTML=`<div class="individual-watch"><div class="individual-watch-head">個別銘柄の自動判定</div>${candidates.length?`<div class="individual-watch-list">${candidates.map(x=>`<div class="individual-watch-row" style="--row-color:${x.stage.color}"><span>${esc(x.h.code)} · ${esc(x.h.name)}</span><b>-${x.d.drop.toFixed(0)}%</b><em>${x.stage.label}</em></div>`).join("")}</div>`:`<div class="individual-watch-empty">高値比 -15%以上の銘柄はありません</div>`}</div>`;
+  const guideBtn=F("btnLossGuide");if(guideBtn)guideBtn.style.setProperty("--guide-color",overall.color);
+}
 
 function buildCard(h){
   const d=derive(h);
@@ -1251,9 +1316,10 @@ function buildCard(h){
 }
 
 function renderStash(){
-  let value=0,cost=0,annNet=0,wc=0,wy=0,receiptTotal=0,levelSum=0,levelCount=0;
-  data.forEach(h=>{const d=derive(h);value+=d.value;cost+=d.cost;if(!isAllCountryHolding(h))annNet+=d.annDivNet;if(countsTowardIncomeYield(h,d)){wc+=d.cost;wy+=d.netYoc*d.cost;}receiptTotal+=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);const level=incomeLevel(h,d);if(level!=null&&Number.isFinite(level)){levelSum+=level;levelCount++;}});
+  let value=0,cost=0,peakValue=0,annNet=0,wc=0,wy=0,receiptTotal=0,levelSum=0,levelCount=0;
+  data.forEach(h=>{const d=derive(h);value+=d.value;cost+=d.cost;peakValue+=Math.max(num(h.high),num(h.price))*num(h.shares)/qtyFactor(h);if(!isAllCountryHolding(h))annNet+=d.annDivNet;if(countsTowardIncomeYield(h,d)){wc+=d.cost;wy+=d.netYoc*d.cost;}receiptTotal+=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);const level=incomeLevel(h,d);if(level!=null&&Number.isFinite(level)){levelSum+=level;levelCount++;}});
   const gain=value-cost, gainPct=cost?gain/cost*100:0, wYoc=wc?wy/wc:0;
+  const portfolioIndex=updatePortfolioIndex(value,cost,peakValue);
   const man=n=>`¥${Math.round(Math.abs(n)/10000).toLocaleString("ja-JP")}<span class="manunit">万</span>`;
   const manS=n=>`${n>=0?"+":"−"}${man(n)}`;
   const wait=investmentTarget-cost;
@@ -1300,6 +1366,7 @@ function renderStash(){
       ${divGoal}
     </div>`;
   document.querySelectorAll("#stash .summary-sticky").forEach(note=>note.onclick=()=>{note.classList.remove("bump");void note.offsetWidth;note.classList.add("bump");});
+  renderLossGuide(portfolioIndex,value,cost);
   const lossGuideBtn=F("btnLossGuide");if(lossGuideBtn)lossGuideBtn.onclick=()=>show("lossGuideScrim");
 }
 
@@ -1762,7 +1829,7 @@ function updateTSum(){const s=num(F("t_kobetsu").value)+num(F("t_etf").value)+nu
 F("btnIO").onclick=()=>{renderTierLegend();show("ioScrim");};
 F("btnExport").onclick=async()=>{
   const filename=`mochikabu-${new Date().toISOString().slice(0,10)}.json`;
-  const blob=new Blob([JSON.stringify({data,targets,divTarget,investmentTarget,reserveRatio,emergencyFund,rules:RULES,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify({data,targets,divTarget,investmentTarget,reserveRatio,emergencyFund,portfolioIndexState,rules:RULES,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
   try{
     if(window.showSaveFilePicker){
       const handle=await showSaveFilePicker({suggestedName:filename,types:[{description:"JSON",accept:{"application/json":[".json"]}}]});
@@ -1785,7 +1852,7 @@ F("btnExport").onclick=async()=>{
   }
 };
 F("btnImport").onclick=()=>F("importFile").click();
-F("importFile").onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const o=JSON.parse(ev.target.result);if(Array.isArray(o.data)){data=o.data;if(o.targets)targets=o.targets;if(o.divTarget>0){divTarget=o.divTarget;saveDivTarget();}if(o.investmentTarget>0){investmentTarget=o.investmentTarget;saveInvestmentTarget();}if(o.reserveRatio!=null){reserveRatio=Math.min(Math.max(num(o.reserveRatio),0),100);saveReserveRatio();}if(o.emergencyFund!=null){emergencyFund=Math.max(num(o.emergencyFund),0);saveEmergencyFund();}if(o.rules){RULES=Object.assign({},DEF_RULES,o.rules);saveRules();}}else if(Array.isArray(o)){data=o;}save();saveTargets();hide("ioScrim");render();}catch(err){alert("読み込めませんでした。書き出したJSONファイルを選んでください。");}};r.readAsText(file);};
+F("importFile").onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>{try{const o=JSON.parse(ev.target.result);if(Array.isArray(o.data)){data=o.data;if(o.targets)targets=o.targets;if(o.divTarget>0){divTarget=o.divTarget;saveDivTarget();}if(o.investmentTarget>0){investmentTarget=o.investmentTarget;saveInvestmentTarget();}if(o.reserveRatio!=null){reserveRatio=Math.min(Math.max(num(o.reserveRatio),0),100);saveReserveRatio();}if(o.emergencyFund!=null){emergencyFund=Math.max(num(o.emergencyFund),0);saveEmergencyFund();}portfolioIndexState=o.portfolioIndexState&&Number.isFinite(o.portfolioIndexState.index)?o.portfolioIndexState:null;savePortfolioIndexState();if(o.rules){RULES=Object.assign({},DEF_RULES,o.rules);saveRules();}}else if(Array.isArray(o)){data=o;portfolioIndexState=null;savePortfolioIndexState();}save();saveTargets();hide("ioScrim");render();}catch(err){alert("読み込めませんでした。書き出したJSONファイルを選んでください。");}};r.readAsText(file);};
 F("btnSeed").onclick=()=>{if(confirm("現在のデータをサンプルで置き換えます。よろしいですか？")){data=seed();save();hide("ioScrim");render();}};
 function renderTierLegend(){
   const rev=[...GRADES].reverse();

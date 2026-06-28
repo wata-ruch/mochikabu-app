@@ -1,4 +1,4 @@
-const CACHE_NAME="mochikabu-pwa-v23";
+const CACHE_NAME="mochikabu-pwa-v26";
 const APP_SHELL=[
   "./",
   "./index.html",
