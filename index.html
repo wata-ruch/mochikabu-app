@@ -93,8 +93,10 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .stat .val{font-family:var(--numfont),"Noto Sans JP",monospace;font-weight:700;font-size:21px;line-height:1.12;letter-spacing:-.3px}
 .stat .val small{font-size:12.5px;color:var(--muted);font-weight:600;font-family:"Noto Sans JP"}
 .stat .sub2{font-size:11px;color:var(--muted);margin-top:3px}
+.statpair{position:relative}
 .statpair .statrows{display:flex;flex-direction:column;gap:6px;min-width:0;padding-left:9px;border-left:3px solid var(--accent)}
 .statpair .statrow{grid-template-columns:.8fr 1.2fr;gap:8px}
+.statpair .statrow:first-child .statitem:last-child{padding-right:24px}
 .statpair .statitem .k{color:color-mix(in srgb,var(--ink) 58%,var(--muted));font-weight:700}
 .statpair .statitem .v{font-weight:800;text-shadow:0 1px 0 color-mix(in srgb,var(--cardbase) 45%,transparent)}
 .statpair .gainvalue{display:inline-flex;align-items:baseline;padding:1px 4px 2px 0;border-bottom:1px solid currentColor;text-shadow:0 0 10px color-mix(in srgb,currentColor 24%,transparent)}
@@ -117,7 +119,7 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .income-stat .incomevalue .manunit{color:inherit;opacity:.74}
 .income-stat .incomevalue .note{color:inherit;opacity:.82;margin-left:0;font-size:13px}
 .income-stat .taxnote{font-size:.8em;font-weight:600;opacity:.72}
-.income-goal{width:82px;height:82px;justify-self:end;color:var(--ink);position:relative}
+.income-goal{width:82px;height:82px;justify-self:end;color:var(--ink);position:relative;transform:translateX(10px)}
 .income-goal svg{width:82px;height:82px;display:block}
 .income-goal *{pointer-events:none}
 .income-goal .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--numfont);font-size:14px;font-weight:800}
@@ -130,6 +132,23 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .level-sticky{--sticky-color:var(--accent2);--sticky-tilt:2.8deg;bottom:4px}
 .summary-sticky.bump{animation:stickyBump .28s cubic-bezier(.2,.8,.25,1)}
 @keyframes stickyBump{0%,100%{transform:rotate(var(--sticky-tilt)) translateY(0) scale(1)}45%{transform:rotate(0deg) translateY(-5px) scale(1.06)}}
+.gain-guide-btn{position:absolute;z-index:3;top:5px;right:7px;width:23px;height:23px;padding:0;border:1px solid color-mix(in srgb,var(--pos) 65%,var(--line));border-radius:50%;background:color-mix(in srgb,var(--pos) 12%,var(--panel2));box-shadow:0 0 12px -7px var(--pos);color:var(--pos);font-family:var(--numfont);font-size:14px;font-weight:900;line-height:21px;text-align:center;cursor:pointer;transition:.16s}
+.gain-guide-btn:hover{background:color-mix(in srgb,var(--pos) 22%,var(--panel2));transform:scale(1.06)}
+.gain-guide-btn:active{transform:scale(.92)}
+.loss-guide-modal{max-width:540px;margin:calc(env(safe-area-inset-top,0px) + 12px) auto 12px}
+.loss-guide-body{padding:12px 14px 14px}
+.loss-guide-lead{margin:0 0 11px;padding:10px 12px;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--ink);font-size:15px;font-weight:800}
+.loss-guide-intro{margin:0 0 10px;color:var(--muted);font-size:11.5px;line-height:1.65}
+.loss-levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.loss-level{padding:8px;border:1px solid var(--line);border-top:3px solid var(--loss-color);border-radius:0 0 7px 7px;background:color-mix(in srgb,var(--panel2) 72%,transparent)}
+.loss-level b{display:block;color:var(--loss-color);font-family:var(--numfont);font-size:16px}
+.loss-level span{display:block;margin-top:3px;color:var(--muted);font-size:9px;line-height:1.4}
+.loss-rules{display:grid;gap:6px}
+.loss-rule{display:grid;grid-template-columns:27px minmax(0,1fr);gap:8px;align-items:start;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--panel3) 72%,transparent)}
+.loss-rule i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--numfont);font-size:10px;font-style:normal;font-weight:800}
+.loss-rule strong{display:block;color:var(--ink);font-size:11.5px}
+.loss-rule small{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;line-height:1.5}
+@media(max-width:420px){.loss-levels{gap:4px}.loss-level{padding:7px 5px}.loss-level b{font-size:14px}.loss-level span{font-size:8.5px}}
 
 .section-h{display:flex;align-items:center;gap:9px;margin:8px 0 5px}
 .section-h h2{font-family:"Syne";font-weight:700;font-size:15px;letter-spacing:.3px}
@@ -844,6 +863,25 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
   </section></div>
 </div></div>
 
+<div class="scrim" id="lossGuideScrim"><div class="modal loss-guide-modal">
+  <div class="mh"><h3>含み損時の行動ルール</h3><button class="x" data-close>&times;</button></div>
+  <div class="loss-guide-body">
+    <p class="loss-guide-lead">マイナスになったら、まず待つ。</p>
+    <p class="loss-guide-intro">下落だけを理由に急いで動かない。待機資金から追加するのは、事前に決めた金額と段階だけ。</p>
+    <div class="loss-levels" aria-label="段階的な追加投資">
+      <div class="loss-level" style="--loss-color:#e5a84f"><b>-20%</b><span>追加を開始<br>決めた金額だけ</span></div>
+      <div class="loss-level" style="--loss-color:#e47f68"><b>-25%</b><span>投入額を<br>一段厚くする</span></div>
+      <div class="loss-level" style="--loss-color:#d85f75"><b>-30%</b><span>最も厚い段階<br>余力は残す</span></div>
+    </div>
+    <div class="loss-rules">
+      <div class="loss-rule"><i>15</i><div><strong>-15%以上の下落から準備</strong><small>待機資金のうち、事前に決めた追加枠だけを使う。</small></div></div>
+      <div class="loss-rule"><i>株</i><div><strong>個別株は条件を確認</strong><small>業績と配当維持を確認できる銘柄だけを買う。</small></div></div>
+      <div class="loss-rule"><i>迷</i><div><strong>迷ったら分散を優先</strong><small>判断に迷う時は、個別株ではなくETF・投信を買う。</small></div></div>
+    </div>
+  </div>
+  <div class="mf"><span></span><button class="btn" data-close>閉じる</button></div>
+</div></div>
+
 <div class="scrim" id="editScrim"><div class="modal">
   <div class="mh"><h3 id="editTitle">銘柄を追加</h3><button class="x" data-close>&times;</button></div>
   <div class="mb">
@@ -1238,7 +1276,7 @@ function renderStash(){
   const avgLevel=levelCount?levelSum/levelCount:null;
   const levelSticky=`<div class="summary-sticky level-sticky" title="登録銘柄の平均収益レベル"><small>平均 収益Lv</small><b>${avgLevel==null?"—":`${avgLevel>=0?"+":""}${Math.round(avgLevel)}%`}</b></div>`;
   document.getElementById("stash").innerHTML=`
-    <div class="stat statpair"><div class="statrows">
+    <div class="stat statpair"><button type="button" class="gain-guide-btn" id="btnLossGuide" title="含み損時の行動ルール" aria-label="含み損時の行動ルールを開く">!</button><div class="statrows">
       <div class="statrow">
         <div class="statitem"><div class="k">評価額</div><div class="v">${man(value)}</div></div>
         <div class="statitem"><div class="k">含み益</div><div class="v ${gain>=0?"pos":"neg"}"><span class="gainvalue">${manS(gain)}<span class="gainpct">（${sg(gainPct)}）</span></span></div></div>
@@ -1262,6 +1300,7 @@ function renderStash(){
       ${divGoal}
     </div>`;
   document.querySelectorAll("#stash .summary-sticky").forEach(note=>note.onclick=()=>{note.classList.remove("bump");void note.offsetWidth;note.classList.add("bump");});
+  const lossGuideBtn=F("btnLossGuide");if(lossGuideBtn)lossGuideBtn.onclick=()=>show("lossGuideScrim");
 }
 
 function donutSVG(segs,total,label="TOTAL",centerValue=total,centerTarget=null){
