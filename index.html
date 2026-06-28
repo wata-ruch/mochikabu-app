@@ -460,6 +460,7 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .growth-lv{position:absolute;z-index:5;left:12px;bottom:-8px;display:inline-flex;align-items:baseline;justify-content:center;gap:2px;padding:2px 7px 3px;border:1px solid var(--rc);border-radius:6px;background:var(--cardbase);box-shadow:0 4px 10px -7px var(--rc);font-family:var(--numfont);font-weight:900;line-height:1;white-space:nowrap;pointer-events:none}
 .growth-lv-label{color:var(--rc);font-size:9.5px}
 .growth-lv-value{color:var(--ink);font-size:15.5px;line-height:.76;transform:translateY(1px);text-shadow:0 0 9px color-mix(in srgb,var(--rc) 22%,transparent)}
+.growth-lv-pct{font-size:.62em;margin-left:1px;vertical-align:baseline}
 .botright{grid-column:1/3;display:flex;align-items:center;justify-content:flex-end;gap:5px;flex:0 0 auto}
 .sharemini{font-family:var(--numfont);font-size:10.5px;color:var(--ink);white-space:nowrap}
 .valuebadge{font-family:var(--numfont);font-size:13px;font-weight:700;color:var(--ink);line-height:1;border:1px solid var(--rc);border-radius:0 0 9px 0;padding:4px 8px;margin-right:-5px;white-space:nowrap;background:transparent}
@@ -1178,7 +1179,7 @@ function buildCard(h){
   const yLevel=d.hasYield?(d.netYld>=4?3:d.netYld>=3.5?2:d.netYld>=3?1:0):0;
   const valueMan=Math.round(d.value/10000).toLocaleString("ja-JP");
   const capLine=`<div class="capmini">時価総額 <b>${capLabel(h.cap)}</b></div>`;
-  const growthBadge=growthLevel==null||!Number.isFinite(growthLevel)?"":`<span class="growth-lv"><span class="growth-lv-label">Lv.</span><span class="growth-lv-value">${growthLevel>=0?"+":""}${Math.round(growthLevel)}%</span></span>`;
+  const growthBadge=growthLevel==null||!Number.isFinite(growthLevel)?"":`<span class="growth-lv"><span class="growth-lv-label">Lv.</span><span class="growth-lv-value">${growthLevel>=0?"+":""}${Math.round(growthLevel)}<span class="growth-lv-pct">%</span></span></span>`;
   const trendRow=`<div class="cardfoot"><div class="trendleft"><span class="commentmini" title="${esc(d.memo)}">${esc(d.memo)}</span><div class="trendmini">${trendMini("divtrend",d.divRecent)}${trendMini("eps",recentTrend(h.eps,3))}</div></div><div class="footright"><span class="settlemini"><span class="receiptmini"><span class="receiptlabel">配当総額 </span><span class="receiptamount">${yen(receiptTotal)}</span></span><span class="monthmini">${monthLabel(h.month)}</span></span><span class="botright"><span class="sharemini">${h.shares.toLocaleString()}${qtyUnit(h)}</span><span class="valuebadge">¥${valueMan}<small>万</small></span></span></div></div>`;
   el.innerHTML = ribbon + acctTop + ybadge + saletag + growthBadge + iconHTML(h) + `
     <div class="topdiv"><span class="divlabel">年間配当</span><span class="divnet">${d.hasYield?yen(d.annDivNet):"—"}</span></div>
