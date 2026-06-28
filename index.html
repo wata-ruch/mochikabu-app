@@ -650,9 +650,13 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .grid.compact .ybadge small{font-size:9px}
 .grid.compact .accttop{display:none}
 .grid.compact .glabel{display:none}
-.grid.compact .trendleft,.grid.compact .settlemini,.grid.compact .metrics3,.grid.compact .cardvalue,.grid.compact .cardnote-line,.grid.compact .status,.grid.compact .saletag,.grid.compact .growth-lv{display:none}
-.grid.compact .cardfoot{display:flex;margin-top:5px;padding-top:0;border-top:none;justify-content:flex-end}
-.grid.compact .footright{display:flex;align-items:center;justify-content:flex-end;gap:4px}
+.grid.compact .trendleft,.grid.compact .metrics3,.grid.compact .cardvalue,.grid.compact .cardnote-line,.grid.compact .status,.grid.compact .saletag{display:none}
+.grid.compact .cardfoot{display:flex;margin-top:5px;padding-top:0;border-top:none;justify-content:space-between}
+.grid.compact .footright{display:flex;width:100%;align-items:flex-end;justify-content:space-between;gap:4px}
+.grid.compact .settlemini{display:inline;text-align:left;font-size:8.5px}
+.grid.compact .receiptlabel{display:none}
+.grid.compact .receiptamount{font-size:10px}
+.grid.compact .growth-lv{display:block;left:8px;bottom:-6px;padding:2px 5px 3px;font-size:8px}
 .grid.compact .botright{gap:4px}
 .grid.compact .sharemini{font-size:8.5px}
 .grid.compact .valuebadge{font-size:10.5px;padding:3px 6px;margin-right:-4px;border-radius:0 0 7px 0}
@@ -1140,7 +1144,8 @@ function trendMini(kind,val){
 function buildCard(h){
   const d=derive(h);
   const receiptTotal=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);
-  const firstDiv=num(h.firstAnnualDividend),growthLevel=firstDiv>0?num(d.effDiv)/firstDiv*100-100:null;
+  const firstPrice=num(h.firstPurchasePrice),firstDiv=num(h.firstAnnualDividend),firstYield=firstPrice>0&&firstDiv>0?firstDiv/firstPrice*100:0;
+  const growthLevel=firstYield>0&&Number.isFinite(d.grossYoc)?d.grossYoc/firstYield*100-100:null;
   const el=document.createElement("div");
   el.className=d.saleOn?"card saleon":"card"; el.style.setProperty("--rc",d.tier.color);
   el.dataset.id=h.id; el.dataset.class=h.cls; el.dataset.flag=d.flag||"";
@@ -1165,7 +1170,7 @@ function buildCard(h){
   const valueMan=Math.round(d.value/10000).toLocaleString("ja-JP");
   const capLine=`<div class="capmini">時価総額 <b>${capLabel(h.cap)}</b></div>`;
   const growthBadge=growthLevel==null||!Number.isFinite(growthLevel)?"":`<span class="growth-lv">Lv.${growthLevel>=0?"+":""}${Math.round(growthLevel)}%</span>`;
-  const trendRow=`<div class="cardfoot"><div class="trendleft"><span class="commentmini" title="${esc(d.memo)}">${esc(d.memo)}</span><div class="trendmini">${trendMini("divtrend",d.divRecent)}${trendMini("eps",recentTrend(h.eps,3))}</div></div><div class="footright"><span class="settlemini"><span class="receiptmini">配当総額 ${yen(receiptTotal)}</span><span class="monthmini">${monthLabel(h.month)}</span></span><span class="botright"><span class="sharemini">${h.shares.toLocaleString()}${qtyUnit(h)}</span><span class="valuebadge">¥${valueMan}<small>万</small></span></span></div></div>`;
+  const trendRow=`<div class="cardfoot"><div class="trendleft"><span class="commentmini" title="${esc(d.memo)}">${esc(d.memo)}</span><div class="trendmini">${trendMini("divtrend",d.divRecent)}${trendMini("eps",recentTrend(h.eps,3))}</div></div><div class="footright"><span class="settlemini"><span class="receiptmini"><span class="receiptlabel">配当総額 </span><span class="receiptamount">${yen(receiptTotal)}</span></span><span class="monthmini">${monthLabel(h.month)}</span></span><span class="botright"><span class="sharemini">${h.shares.toLocaleString()}${qtyUnit(h)}</span><span class="valuebadge">¥${valueMan}<small>万</small></span></span></div></div>`;
   el.innerHTML = ribbon + acctTop + ybadge + saletag + growthBadge + iconHTML(h) + `
     <div class="topdiv"><span class="divlabel">年間配当</span><span class="divnet">${d.hasYield?yen(d.annDivNet):"—"}</span></div>
     <div class="cd">${esc(h.code)} · ${esc(h.sector)}</div>
