@@ -116,15 +116,20 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .income-stat .annualamount{color:inherit}
 .income-stat .incomevalue .manunit{color:inherit;opacity:.74}
 .income-stat .incomevalue .note{color:inherit;opacity:.82;margin-left:0;font-size:13px}
+.income-stat .taxnote{font-size:.8em;font-weight:600;opacity:.72}
 .income-goal{width:82px;height:82px;justify-self:end;color:var(--ink);position:relative}
 .income-goal svg{width:82px;height:82px;display:block}
 .income-goal *{pointer-events:none}
 .income-goal .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--numfont);font-size:14px;font-weight:800}
 .income-goal .cap{position:absolute;left:0;right:0;bottom:-9px;text-align:center;font-size:9px;color:var(--muted);font-family:"Noto Sans JP";white-space:nowrap}
-.receipt-sticky{position:absolute;z-index:2;right:94px;bottom:4px;min-width:82px;padding:7px 10px 8px;border:1px solid color-mix(in srgb,var(--accent) 58%,var(--line));border-radius:2px 5px 3px 5px;background:color-mix(in srgb,var(--accent) 14%,var(--panel2));box-shadow:0 7px 13px -10px var(--shadow),inset 0 1px 0 rgba(255,255,255,.25);color:var(--ink);text-align:center;transform:rotate(-2.5deg);transform-origin:center;pointer-events:none}
-.receipt-sticky::before{content:"";position:absolute;top:-4px;left:50%;width:28px;height:8px;transform:translateX(-50%) rotate(1deg);background:color-mix(in srgb,var(--accent2) 34%,rgba(255,255,255,.45));border-radius:1px;opacity:.72}
-.receipt-sticky small{display:block;color:var(--muted);font-family:"Noto Sans JP";font-size:9.5px;font-weight:700;line-height:1;white-space:nowrap}
-.receipt-sticky b{display:block;margin-top:4px;color:var(--accent);font-family:var(--numfont);font-size:15px;font-weight:900;line-height:1;white-space:nowrap}
+.summary-sticky{--sticky-color:var(--accent);--sticky-tilt:-2.5deg;position:absolute;z-index:2;right:94px;min-width:82px;padding:7px 10px 8px;border:1px solid color-mix(in srgb,var(--sticky-color) 58%,var(--line));border-radius:2px 5px 3px 5px;background:color-mix(in srgb,var(--sticky-color) 14%,var(--panel2));box-shadow:0 7px 13px -10px var(--shadow),inset 0 1px 0 rgba(255,255,255,.25);color:var(--ink);text-align:center;transform:rotate(var(--sticky-tilt));transform-origin:center;cursor:pointer}
+.summary-sticky::before{content:"";position:absolute;top:-4px;left:50%;width:28px;height:8px;transform:translateX(-50%) rotate(1deg);background:color-mix(in srgb,var(--sticky-color) 30%,rgba(255,255,255,.5));border-radius:1px;opacity:.76}
+.summary-sticky small{display:block;color:var(--muted);font-family:"Noto Sans JP";font-size:9.5px;font-weight:700;line-height:1;white-space:nowrap}
+.summary-sticky b{display:block;margin-top:4px;color:var(--sticky-color);font-family:var(--numfont);font-size:15px;font-weight:900;line-height:1;white-space:nowrap}
+.receipt-sticky{top:4px}
+.level-sticky{--sticky-color:var(--accent2);--sticky-tilt:2.8deg;bottom:4px}
+.summary-sticky.bump{animation:stickyBump .28s cubic-bezier(.2,.8,.25,1)}
+@keyframes stickyBump{0%,100%{transform:rotate(var(--sticky-tilt)) translateY(0) scale(1)}45%{transform:rotate(0deg) translateY(-5px) scale(1.06)}}
 
 .section-h{display:flex;align-items:center;gap:9px;margin:8px 0 5px}
 .section-h h2{font-family:"Syne";font-weight:700;font-size:15px;letter-spacing:.3px}
@@ -1150,12 +1155,15 @@ function trendMini(kind,val){
   const wrap=kind==="eps";
   return `<span class="trenditem ${kind} ${cls}">${wrap?"（":""}${wrap?"":`<span class="ta">${arrow}</span>`}<span class="tv">${txt}</span>${wrap?"）":""}</span>`;
 }
+function incomeLevel(h,d){
+  const firstPrice=num(h.firstPurchasePrice),firstDiv=num(h.firstAnnualDividend),firstYield=firstPrice>0&&firstDiv>0?firstDiv/firstPrice*100:0;
+  return firstYield>0&&Number.isFinite(d.grossYoc)?d.grossYoc/firstYield*100-100:null;
+}
 
 function buildCard(h){
   const d=derive(h);
   const receiptTotal=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);
-  const firstPrice=num(h.firstPurchasePrice),firstDiv=num(h.firstAnnualDividend),firstYield=firstPrice>0&&firstDiv>0?firstDiv/firstPrice*100:0;
-  const growthLevel=firstYield>0&&Number.isFinite(d.grossYoc)?d.grossYoc/firstYield*100-100:null;
+  const growthLevel=incomeLevel(h,d);
   const el=document.createElement("div");
   el.className=d.saleOn?"card saleon":"card"; el.style.setProperty("--rc",d.tier.color);
   el.dataset.id=h.id; el.dataset.class=h.cls; el.dataset.flag=d.flag||"";
@@ -1205,15 +1213,15 @@ function buildCard(h){
 }
 
 function renderStash(){
-  let value=0,cost=0,annNet=0,wc=0,wy=0,receiptTotal=0;
-  data.forEach(h=>{const d=derive(h);value+=d.value;cost+=d.cost;if(!isAllCountryHolding(h))annNet+=d.annDivNet;if(countsTowardIncomeYield(h,d)){wc+=d.cost;wy+=d.netYoc*d.cost;}receiptTotal+=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);});
+  let value=0,cost=0,annNet=0,wc=0,wy=0,receiptTotal=0,levelSum=0,levelCount=0;
+  data.forEach(h=>{const d=derive(h);value+=d.value;cost+=d.cost;if(!isAllCountryHolding(h))annNet+=d.annDivNet;if(countsTowardIncomeYield(h,d)){wc+=d.cost;wy+=d.netYoc*d.cost;}receiptTotal+=(Array.isArray(h.dividendReceipts)?h.dividendReceipts:[]).reduce((sum,item)=>sum+num(item.amount),0);const level=incomeLevel(h,d);if(level!=null&&Number.isFinite(level)){levelSum+=level;levelCount++;}});
   const gain=value-cost, gainPct=cost?gain/cost*100:0, wYoc=wc?wy/wc:0;
   const man=n=>`¥${Math.round(Math.abs(n)/10000).toLocaleString("ja-JP")}<span class="manunit">万</span>`;
   const manS=n=>`${n>=0?"+":"−"}${man(n)}`;
   const wait=investmentTarget-cost;
   const waitingLabel=investmentTarget?`${wait<0?"−":""}${man(wait)}／${man(investmentTarget)}`:"—／—";
-  const monthly=Math.floor(annNet/12),monthlyMan=Math.floor(monthly/10000),monthlySen=Math.floor((monthly%10000)/1000);
-  const monthlyLabel=`¥${monthlyMan}<span class="manunit">万</span>${monthlySen}<span class="manunit">千</span>／月換算`;
+  const monthly=Math.floor(annNet/12);
+  const monthlyLabel=`¥${(monthly/10000).toFixed(1)}<span class="manunit">万</span>／月`;
   const divPct=divTarget?annNet/divTarget*100:0;
   const divPctCap=Math.min(divPct,100);
   const divCirc=2*Math.PI*30;
@@ -1226,7 +1234,9 @@ function renderStash(){
     <span class="pct">${divPct.toFixed(0)}%</span>
     <span class="cap">目標 ${compactYen(divTarget)}</span>
   </div>`;
-  const receiptSticky=`<div class="receipt-sticky" title="全銘柄の累計受取配当"><small>受取配当 合計</small><b>${compactYen(receiptTotal)}</b></div>`;
+  const receiptSticky=`<div class="summary-sticky receipt-sticky" title="全銘柄の累計受取配当"><small>受取配当 合計</small><b>${compactYen(receiptTotal)}</b></div>`;
+  const avgLevel=levelCount?levelSum/levelCount:null;
+  const levelSticky=`<div class="summary-sticky level-sticky" title="登録銘柄の平均収益レベル"><small>平均 収益Lv</small><b>${avgLevel==null?"—":`${avgLevel>=0?"+":""}${Math.round(avgLevel)}%`}</b></div>`;
   document.getElementById("stash").innerHTML=`
     <div class="stat statpair"><div class="statrows">
       <div class="statrow">
@@ -1241,15 +1251,17 @@ function renderStash(){
     <div class="stat income-stat">
       <div class="statrows">
         <div class="statrow solo">
-          <div class="statitem"><div class="k">年間配当金（税引き後）</div><div class="v"><span class="incomevalue"><span class="annualamount">¥${Math.floor(annNet/10000).toLocaleString("ja-JP")}<span class="manunit">万</span></span><span class="note">（${monthlyLabel}）</span></span></div></div>
+          <div class="statitem"><div class="k">年間配当金<span class="taxnote">（税引き後）</span></div><div class="v"><span class="incomevalue"><span class="annualamount">¥${Math.floor(annNet/10000).toLocaleString("ja-JP")}<span class="manunit">万</span></span><span class="note">（${monthlyLabel}）</span></span></div></div>
         </div>
         <div class="statrow solo">
-          <div class="statitem"><div class="k">取得利回り（税引き後）</div><div class="v">${wYoc.toFixed(2)}<span class="manunit">%</span></div></div>
+          <div class="statitem"><div class="k">取得利回り<span class="taxnote">（税引き後）</span></div><div class="v">${wYoc.toFixed(2)}<span class="manunit">%</span></div></div>
         </div>
       </div>
       ${receiptSticky}
+      ${levelSticky}
       ${divGoal}
     </div>`;
+  document.querySelectorAll("#stash .summary-sticky").forEach(note=>note.onclick=()=>{note.classList.remove("bump");void note.offsetWidth;note.classList.add("bump");});
 }
 
 function donutSVG(segs,total,label="TOTAL",centerValue=total,centerTarget=null){
