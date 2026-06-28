@@ -1024,7 +1024,7 @@ const useUnitPricePer10k=h=>h&&!isFourCharListedCode(h);
 const qtyFactor=h=>useUnitPricePer10k(h)?10000:1;
 const qtyUnit=h=>useUnitPricePer10k(h)?"口":"株";
 
-let data=load(), targets=loadTargets(), view=loadView(), RULES=loadRules(), divTarget=loadDivTarget(), investmentTarget=loadInvestmentTarget(), reserveRatio=loadReserveRatio(), emergencyFund=loadEmergencyFund(), editingId=null, divInputEdited=false;
+let data=load(), targets=loadTargets(), view=loadView(), RULES=loadRules(), divTarget=loadDivTarget(), investmentTarget=loadInvestmentTarget(), reserveRatio=loadReserveRatio(), emergencyFund=loadEmergencyFund(), editingId=null;
 function loadRules(){try{const r=JSON.parse(localStorage.getItem(RKEY));if(r)return Object.assign({},DEF_RULES,r);}catch(e){}return {...DEF_RULES};}
 function saveRules(){localStorage.setItem(RKEY,JSON.stringify(RULES));}
 let compact=localStorage.getItem("mochikabu_compact_v1")==="1";
@@ -1630,14 +1630,13 @@ function spark(values,title,mode){
 }
 
 let logoData="";const F=id=>document.getElementById(id);
-F("f_div").addEventListener("input",()=>{divInputEdited=true;});
 function openEdit(id){
-  editingId=id||null;divInputEdited=false;const h=id?data.find(x=>x.id===id):null;
+  editingId=id||null;const h=id?data.find(x=>x.id===id):null;
   F("editTitle").textContent=h?"銘柄を編集":"銘柄を追加";F("btnDelete").style.visibility=h?"visible":"hidden";logoData=h?h.logo||"":"";
   F("f_code").value=h?h.code:"";F("f_name").value=h?h.name:"";F("f_sector").value=h?h.sector:"";
   F("f_class").value=h?h.cls:"高配当銘柄";F("f_account").value=h?(h.account||"特定"):"NISA";
   F("f_price").value=h?h.price:"";F("f_cost").value=h?h.cost:"";F("f_shares").value=h?h.shares:"";
-  F("f_high").value=h?h.high:"";F("f_div").value=h?h.div:"";F("f_hike").value=h?h.hike:"";F("f_saleRate").value=h?(h.saleRate||""):"";
+  F("f_high").value=h?h.high:"";F("f_div").value=h?(Array.isArray(h.divHistory)&&h.divHistory.length?h.divHistory[h.divHistory.length-1]:h.div):"";F("f_hike").value=h?h.hike:"";F("f_saleRate").value=h?(h.saleRate||""):"";
   F("f_month").value=h?String(h.month||0):"0";F("f_payout").value=h?(h.payout||""):"";F("f_equity").value=h?(h.equity||""):"";
   F("f_cap").value=h?(h.cap||""):"";F("f_eps").value=h&&h.eps?h.eps.join(","):"";F("f_divhist").value=h&&h.divHistory?h.divHistory.join(","):"";F("f_benefit").value=h?h.benefit:"";F("f_memo").value=h?(h.memo||""):"";F("f_manual").value=h?(h.manualStatus||"自動判定"):"自動判定";
   updateLogoPrev(h?h.name:"");setLogoHint("PNG・JPEG・WebP・SVG・AVIF対応。未設定なら銘柄名の頭文字を表示");show("editScrim");
@@ -1679,8 +1678,7 @@ F("btnSave").onclick=()=>{
   const name=F("f_name").value.trim();if(!name){F("f_name").focus();F("f_name").style.borderColor="var(--neg)";return;}
   const eps=F("f_eps").value.split(",").map(x=>parseFloat(x.trim())).filter(x=>!isNaN(x));
   const divHistory=F("f_divhist").value.split(",").map(x=>parseFloat(x.trim())).filter(x=>!isNaN(x));
-  let divVal=divHistory.length?divHistory[divHistory.length-1]:num(F("f_div").value);
-  if(divInputEdited){divVal=num(F("f_div").value);if(divHistory.length)divHistory[divHistory.length-1]=divVal;}
+  const divVal=divHistory.length?divHistory[divHistory.length-1]:num(F("f_div").value);
   const prior=editingId?data.find(x=>x.id===editingId)||{}:{};
   const rec={...prior,id:editingId||uid(),code:F("f_code").value.trim(),name,sector:F("f_sector").value.trim(),cls:F("f_class").value,account:F("f_account").value,
     price:num(F("f_price").value),cost:num(F("f_cost").value),shares:num(F("f_shares").value),high:num(F("f_high").value)||num(F("f_price").value),
