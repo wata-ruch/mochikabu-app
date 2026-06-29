@@ -124,10 +124,11 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .income-goal *{pointer-events:none}
 .income-goal .pct{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--numfont);font-size:14px;font-weight:800}
 .income-goal .cap{position:absolute;left:0;right:0;bottom:-9px;text-align:center;font-size:9px;color:var(--muted);font-family:"Noto Sans JP";white-space:nowrap}
-.summary-sticky{--sticky-color:var(--accent);--sticky-tilt:-2.5deg;position:absolute;z-index:2;right:94px;min-width:82px;padding:7px 10px 8px;border:1px solid color-mix(in srgb,var(--sticky-color) 58%,var(--line));border-radius:2px 5px 3px 5px;background:color-mix(in srgb,var(--sticky-color) 14%,var(--panel2));box-shadow:0 7px 13px -10px var(--shadow),inset 0 1px 0 rgba(255,255,255,.25);color:var(--ink);text-align:center;transform:rotate(var(--sticky-tilt));transform-origin:center;cursor:pointer}
+.summary-sticky{--sticky-color:var(--accent);--sticky-tilt:-2.5deg;position:absolute;z-index:2;right:94px;width:104px;box-sizing:border-box;padding:7px 10px 8px;border:1px solid color-mix(in srgb,var(--sticky-color) 58%,var(--line));border-radius:2px 5px 3px 5px;background:color-mix(in srgb,var(--sticky-color) 14%,var(--panel2));box-shadow:0 7px 13px -10px var(--shadow),inset 0 1px 0 rgba(255,255,255,.25);color:var(--ink);text-align:center;transform:rotate(var(--sticky-tilt));transform-origin:center;cursor:pointer}
 .summary-sticky::before{content:"";position:absolute;top:-4px;left:50%;width:28px;height:8px;transform:translateX(-50%) rotate(1deg);background:color-mix(in srgb,var(--sticky-color) 30%,rgba(255,255,255,.5));border-radius:1px;opacity:.76}
 .summary-sticky small{display:block;color:var(--muted);font-family:"Noto Sans JP";font-size:9.5px;font-weight:700;line-height:1;white-space:nowrap}
-.summary-sticky b{display:block;margin-top:4px;color:var(--sticky-color);font-family:var(--numfont);font-size:15px;font-weight:900;line-height:1;white-space:nowrap}
+.summary-sticky b{display:block;margin-top:4px;color:var(--sticky-color);font-family:var(--numfont);font-size:17px;font-weight:900;line-height:1;white-space:nowrap}
+.summary-sticky .sticky-unit{font-size:.58em;margin-left:1px;font-weight:800}
 .receipt-sticky{top:4px}
 .level-sticky{--sticky-color:var(--accent2);--sticky-tilt:2.8deg;bottom:4px}
 .summary-sticky.bump{animation:stickyBump .28s cubic-bezier(.2,.8,.25,1)}
@@ -423,6 +424,11 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 .invest-note.index-note .index-close{margin-top:17px;color:var(--ink);font-size:14.5px;font-weight:700;line-height:1.85}
 #policyScrim .policy-modal{max-width:760px;margin:calc(env(safe-area-inset-top,0px) + 12px) auto 12px}
 .policy-modal .mb{padding:10px 14px 14px}
+.policy-stack{display:grid;gap:9px}
+.policy-open-section{overflow:hidden;border:1px solid var(--line);border-radius:10px;background:linear-gradient(100deg,color-mix(in srgb,var(--panel2) 72%,transparent),var(--panel))}
+.policy-open-title{display:flex;align-items:center;gap:10px;padding:9px 13px;color:var(--ink);font-family:"Syne","Noto Sans JP",sans-serif;font-size:14px;font-weight:700}
+.policy-open-title .invest-note-num{flex:0 0 auto}
+.policy-open-section .invest-note{border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}
 @media(max-width:820px){.accum-panels{grid-template-columns:1fr}}
 @media(max-width:820px){
   .ideal-board{grid-template-columns:1fr;gap:8px}
@@ -867,14 +873,14 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 
 <div class="scrim" id="policyScrim"><div class="modal policy-modal">
   <div class="mh"><h3>投資方針</h3><button class="x" data-close>&times;</button></div>
-  <div class="mb"><section class="investment-notes" aria-label="投資方針">
-    <div class="invest-note-tabs" role="tablist" aria-label="投資方針の見出し">
-      <button class="invest-note-tab" type="button" role="tab" aria-selected="false" aria-controls="note-buy" data-note-tab="buy"><span class="invest-note-num">01</span><span>どの株を買うか？</span></button>
-      <button class="invest-note-tab" type="button" role="tab" aria-selected="false" aria-controls="note-index" data-note-tab="index"><span class="invest-note-num">02</span><span>インデックス投資とは？</span></button>
-    </div>
-    <div class="invest-note-panels">
-      <div class="invest-note invest-note-panel" id="note-buy" role="tabpanel" data-note-panel="buy" hidden><div class="invest-note-body"><div class="invest-quote">「10年間保有するつもりがない株なら、10分間でも保有すべきではない」<span class="invest-source">Warren Buffett</span></div></div></div>
-      <div class="invest-note invest-note-panel index-note" id="note-index" role="tabpanel" data-note-panel="index" hidden><div class="invest-note-body">
+  <div class="mb"><section class="investment-notes policy-stack" aria-label="投資方針">
+    <section class="policy-open-section">
+      <div class="policy-open-title"><span class="invest-note-num">01</span><span>どの株を買うか？</span></div>
+      <div class="invest-note"><div class="invest-note-body"><div class="invest-quote">「10年間保有するつもりがない株なら、10分間でも保有すべきではない」<span class="invest-source">Warren Buffett</span></div></div></div>
+    </section>
+    <section class="policy-open-section">
+      <div class="policy-open-title"><span class="invest-note-num">02</span><span>インデックス投資とは？</span></div>
+      <div class="invest-note index-note"><div class="invest-note-body">
         <p class="index-lead">S&amp;P500、NASDAQ100、オルカンすべてが大幅に下落。<br>こういう時に「バーゲンセールだ！」「買い増しチャンスだ！」と動くのはアクティブ投資だ。</p>
         <p>インデックス投資にアクティブな要素を足すのは、効率面でも感情面でも時間の面でも非常にもったいない。</p>
         <p class="index-rule">長期的な右肩上がりを信じるなら、<strong>買い時はいつも今。</strong><br>大事なのは、リスク許容度の範囲で出来るだけ市場にお金を置いておくこと。</p>
@@ -883,7 +889,7 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
         <p class="index-close">そして、適切なリスクで市場に居続ける。<br>インデックス投資とは、そういうことだ。</p>
         <p>変にタイミングを読むほどアクティブ投資に近づき、効率を落とすことになる。</p>
       </div></div>
-    </div>
+    </section>
   </section></div>
 </div></div>
 
@@ -1067,6 +1073,7 @@ const yenS=n=>(n>=0?"+":"−")+"¥"+Math.round(Math.abs(n)).toLocaleString("ja-J
 const sg=(n,d=1)=>(n>0?"+":n<0?"−":"")+Math.abs(n).toFixed(d)+"%";
 const num=v=>{const n=parseFloat(v);return isNaN(n)?0:n;};
 const compactYen=n=>n>=1e8?"¥"+(n/1e8).toFixed(2)+"億":n>=1e4?"¥"+Math.round(n/1e4)+"万":yen(n);
+const stickyYen=n=>n>=1e8?`¥${(n/1e8).toFixed(2)}<span class="sticky-unit">億</span>`:n>=1e4?`¥${Math.round(n/1e4).toLocaleString("ja-JP")}<span class="sticky-unit">万</span>`:`¥${Math.round(n).toLocaleString("ja-JP")}<span class="sticky-unit">円</span>`;
 
 const GRADES=[{g:"SS",min:5,color:"var(--ss)",rank:5},{g:"S",min:4,color:"var(--s)",rank:4},{g:"A",min:3.5,color:"var(--a)",rank:3},{g:"B",min:3,color:"var(--b)",rank:2},{g:"C",min:0,color:"var(--c)",rank:1}];
 const ALLOC_RANK_COLORS=GRADES.map(g=>g.color);
@@ -1338,9 +1345,9 @@ function renderStash(){
     <span class="pct">${divPct.toFixed(0)}%</span>
     <span class="cap">目標 ${compactYen(divTarget)}</span>
   </div>`;
-  const receiptSticky=`<div class="summary-sticky receipt-sticky" title="全銘柄の累計受取配当"><small>受取配当 合計</small><b>${compactYen(receiptTotal)}</b></div>`;
+  const receiptSticky=`<div class="summary-sticky receipt-sticky" title="全銘柄の累計受取配当"><small>受取配当 合計</small><b>${stickyYen(receiptTotal)}</b></div>`;
   const avgLevel=levelCount?levelSum/levelCount:null;
-  const levelSticky=`<div class="summary-sticky level-sticky" title="登録銘柄の平均収益レベル"><small>平均 収益Lv</small><b>${avgLevel==null?"—":`${avgLevel>=0?"+":""}${Math.round(avgLevel)}%`}</b></div>`;
+  const levelSticky=`<div class="summary-sticky level-sticky" title="登録銘柄の平均収益レベル"><small>平均 収益Lv</small><b>${avgLevel==null?"—":`${avgLevel>=0?"+":""}${Math.round(avgLevel)}<span class="sticky-unit">%</span>`}</b></div>`;
   document.getElementById("stash").innerHTML=`
     <div class="stat statpair"><button type="button" class="gain-guide-btn" id="btnLossGuide" title="含み損時の行動ルール" aria-label="含み損時の行動ルールを開く">!</button><div class="statrows">
       <div class="statrow">
