@@ -139,41 +139,41 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 #lossGuideScrim .loss-guide-modal{max-width:540px;margin:calc(env(safe-area-inset-top,0px) + 12px) auto 12px}
 .loss-guide-body{padding:12px 14px 14px}
 .loss-guide-lead{margin:0 0 11px;padding:10px 12px;border-left:3px solid var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent);color:var(--ink);font-size:15px;font-weight:800}
-.loss-guide-intro{margin:0 0 10px;color:var(--muted);font-size:11.5px;line-height:1.65}
+.loss-guide-intro{margin:0 0 10px;color:var(--muted);font-size:12.5px;line-height:1.65}
 .portfolio-signal{--signal:var(--pos);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;align-items:center;margin:0 0 10px;padding:10px 11px;border:1px solid color-mix(in srgb,var(--signal) 48%,var(--line));border-radius:9px;background:color-mix(in srgb,var(--signal) 8%,var(--panel2))}
-.portfolio-signal .ps-k{color:var(--muted);font-size:9px;font-weight:700}
+.portfolio-signal .ps-k{color:var(--ink);font-size:13px;font-weight:800}
 .portfolio-signal .ps-v{color:var(--signal);font-family:var(--numfont);font-size:24px;font-weight:900;line-height:1}
-.portfolio-signal .ps-stage{grid-row:1/3;grid-column:2;padding:5px 8px;border:1px solid currentColor;border-radius:6px;color:var(--signal);font-size:10px;font-weight:800;white-space:nowrap}
-.portfolio-signal .ps-next{grid-column:1/-1;color:var(--muted);font-size:9px}
+.portfolio-signal .ps-stage{grid-row:1/3;grid-column:2;padding:5px 8px;border:1px solid currentColor;border-radius:6px;color:var(--signal);font-size:11.5px;font-weight:800;white-space:nowrap}
+.portfolio-signal .ps-next{grid-column:1/-1;color:var(--muted);font-size:10.5px}
 .portfolio-reference{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:3px}
-.portfolio-reference span{padding:5px 3px;border:1px solid var(--line);border-radius:5px;background:color-mix(in srgb,var(--panel3) 70%,transparent);text-align:center;color:var(--muted);font-size:9.5px;line-height:1.4}
-.portfolio-reference span b{display:block;color:var(--ink);font-family:var(--numfont);font-size:11px;white-space:nowrap}
-.portfolio-reference-note{grid-column:1/-1;color:var(--faint);font-size:9px;line-height:1.45}
+.portfolio-reference span{padding:5px 3px;border:1px solid var(--line);border-radius:5px;background:color-mix(in srgb,var(--panel3) 70%,transparent);text-align:center;color:var(--muted);font-size:10.5px;line-height:1.4}
+.portfolio-reference span b{display:block;color:var(--ink);font-family:var(--numfont);font-size:12.5px;white-space:nowrap}
+.portfolio-reference-note{grid-column:1/-1;color:var(--faint);font-size:10.5px;line-height:1.45}
 .portfolio-meter{grid-column:1/-1;position:relative;display:grid;grid-template-columns:15fr 5fr 5fr 5fr;height:5px;margin-top:3px;border-radius:5px;background:var(--line2);overflow:hidden}
 .portfolio-meter i{border-right:1px solid color-mix(in srgb,var(--panel) 65%,transparent);background:color-mix(in srgb,var(--faint) 22%,transparent)}
 .portfolio-meter::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--meter,0%);border-radius:5px;background:var(--signal);transition:width .25s ease}
 .loss-levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:10px}
 .loss-level{padding:8px;border:1px solid var(--line);border-top:3px solid var(--loss-color);border-radius:0 0 7px 7px;background:color-mix(in srgb,var(--panel2) 72%,transparent)}
 .loss-level b{display:block;color:var(--loss-color);font-family:var(--numfont);font-size:16px}
-.loss-level span{display:block;margin-top:3px;color:var(--muted);font-size:9px;line-height:1.4}
-.loss-level .loss-alloc{display:block;margin-top:5px;padding-top:4px;border-top:1px solid var(--line);color:var(--ink);font-size:9.5px;font-weight:800;white-space:nowrap}
-.loss-budget-note{margin:-3px 0 10px;padding:5px 8px;border-radius:6px;background:color-mix(in srgb,var(--accent) 7%,transparent);color:var(--muted);font-size:9px;line-height:1.5;text-align:center}
+.loss-level span{display:block;margin-top:3px;color:var(--muted);font-size:10.5px;line-height:1.4}
+.loss-level .loss-alloc{display:block;margin-top:5px;padding-top:4px;border-top:1px solid var(--line);color:var(--ink);font-size:10.5px;font-weight:800;white-space:nowrap}
+.loss-budget-note{margin:-3px 0 10px;padding:5px 8px;border-radius:6px;background:color-mix(in srgb,var(--accent) 7%,transparent);color:var(--muted);font-size:10.5px;line-height:1.5;text-align:center}
 .loss-budget-note b{color:var(--ink)}
 .loss-rules{display:grid;gap:6px}
 .loss-rule{display:grid;grid-template-columns:27px minmax(0,1fr);gap:8px;align-items:start;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:color-mix(in srgb,var(--panel3) 72%,transparent)}
-.loss-rule i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--numfont);font-size:10px;font-style:normal;font-weight:800}
-.loss-rule strong{display:block;color:var(--ink);font-size:11.5px}
-.loss-rule small{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;line-height:1.5}
+.loss-rule i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--numfont);font-size:11px;font-style:normal;font-weight:800}
+.loss-rule strong{display:block;color:var(--ink);font-size:12.5px}
+.loss-rule small{display:block;margin-top:2px;color:var(--muted);font-size:10.5px;line-height:1.5}
 .individual-watch{margin:0 0 10px}
-.individual-watch-head{display:flex;align-items:center;gap:7px;margin-bottom:5px;color:var(--ink);font-size:10.5px;font-weight:800}
+.individual-watch-head{display:flex;align-items:center;gap:7px;margin-bottom:5px;color:var(--ink);font-size:11.5px;font-weight:800}
 .individual-watch-head::after{content:"";height:1px;flex:1;background:var(--line)}
 .individual-watch-list{display:grid;gap:4px;max-height:142px;overflow:auto;padding-right:2px}
 .individual-watch-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:7px;align-items:center;padding:6px 8px;border:1px solid var(--line);border-radius:7px;background:color-mix(in srgb,var(--panel3) 68%,transparent)}
-.individual-watch-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-size:10px}
-.individual-watch-row b{color:var(--row-color);font-family:var(--numfont);font-size:12px}
-.individual-watch-row em{padding:2px 5px;border:1px solid currentColor;border-radius:4px;color:var(--row-color);font-size:8.5px;font-style:normal;font-weight:800;white-space:nowrap}
-.individual-watch-empty{padding:8px;border:1px dashed var(--line);border-radius:7px;color:var(--muted);font-size:10px;text-align:center}
-@media(max-width:420px){.loss-levels{gap:4px}.loss-level{padding:7px 5px}.loss-level b{font-size:14px}.loss-level span{font-size:8.5px}}
+.individual-watch-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink);font-size:11px}
+.individual-watch-row b{color:var(--row-color);font-family:var(--numfont);font-size:13px}
+.individual-watch-row em{padding:2px 5px;border:1px solid currentColor;border-radius:4px;color:var(--row-color);font-size:9.5px;font-style:normal;font-weight:800;white-space:nowrap}
+.individual-watch-empty{padding:8px;border:1px dashed var(--line);border-radius:7px;color:var(--muted);font-size:11px;text-align:center}
+@media(max-width:420px){.loss-levels{gap:4px}.loss-level{padding:7px 5px}.loss-level b{font-size:15px}.loss-level span{font-size:10px}}
 
 .section-h{display:flex;align-items:center;gap:9px;margin:8px 0 5px}
 .section-h h2{font-family:"Syne";font-weight:700;font-size:15px;letter-spacing:.3px}
@@ -898,7 +898,6 @@ header.top{display:flex;align-items:center;justify-content:space-between;gap:12p
 <div class="scrim" id="lossGuideScrim"><div class="modal loss-guide-modal">
   <div class="mh"><h3>含み損時の行動ルール</h3><button class="x" data-close>&times;</button></div>
   <div class="loss-guide-body">
-    <p class="loss-guide-lead">マイナスになったら、まず待つ。</p>
     <div id="portfolioDrawdownPanel"></div>
     <p class="loss-guide-intro">下落だけを理由に急いで動かない。待機資金から追加するのは、事前に決めた金額と段階だけ。</p>
     <div class="loss-levels" aria-label="段階的な追加投資">
@@ -1265,7 +1264,7 @@ function renderLossGuide(portfolioIndex,value,cost){
   const reference=[20,25,30].map(threshold=>{const targetIndex=portfolioIndex.peak*(1-threshold/100),factor=portfolioIndex.index>0?targetIndex/portfolioIndex.index:0,targetValue=value*factor,targetGain=cost>0?(targetValue-cost)/cost*100:null;return {threshold,targetGain};});
   const referenceHTML=`<div class="portfolio-reference">${reference.map(x=>`<span>全体 -${x.threshold}%<b>${x.targetGain==null?"—":`損益 ${sg(x.targetGain,1)}`}</b></span>`).join("")}<div class="portfolio-reference-note">追加投資なし・全銘柄が同じ割合で動いた場合の参考値</div></div>`;
   const panel=F("portfolioDrawdownPanel");
-  if(panel)panel.innerHTML=`<div class="portfolio-signal" style="--signal:${overall.color};--meter:${meter.toFixed(1)}%"><div class="ps-k">全体高値からの下落（入金調整済み）</div><div class="ps-v">-${portfolioDrop.toFixed(1)}%</div><div class="ps-stage">${overall.label}</div><div class="portfolio-meter"><i></i><i></i><i></i><i></i></div><div class="ps-next">${overall.next}</div>${referenceHTML}</div>`;
+  if(panel)panel.innerHTML=`<div class="portfolio-signal" style="--signal:${overall.color};--meter:${meter.toFixed(1)}%"><div class="ps-k">全体高値からの下落</div><div class="ps-v">-${portfolioDrop.toFixed(1)}%</div><div class="ps-stage">${overall.label}</div><div class="portfolio-meter"><i></i><i></i><i></i><i></i></div><div class="ps-next">${overall.next}</div>${referenceHTML}</div>`;
   const candidates=data.map(h=>{const d=derive(h);return {h,d,stage:drawdownStage(d.drop)};}).filter(x=>x.d.drop>=15).sort((a,b)=>b.d.drop-a.d.drop);
   const watch=F("individualDrawdownPanel");
   if(watch)watch.innerHTML=`<div class="individual-watch"><div class="individual-watch-head">個別銘柄の自動判定</div>${candidates.length?`<div class="individual-watch-list">${candidates.map(x=>`<div class="individual-watch-row" style="--row-color:${x.stage.color}"><span>${esc(x.h.code)} · ${esc(x.h.name)}</span><b>-${x.d.drop.toFixed(0)}%</b><em>${x.stage.label}</em></div>`).join("")}</div>`:`<div class="individual-watch-empty">高値比 -15%以上の銘柄はありません</div>`}</div>`;
