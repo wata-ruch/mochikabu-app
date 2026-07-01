@@ -1870,6 +1870,16 @@ function renderTierLegend(){
 
 function show(id){F(id).classList.add("show");document.body.style.overflow="hidden";}
 function hide(id){F(id).classList.remove("show");document.body.style.overflow="";F("f_name").style.borderColor="";}
+function hasVisibleInput(scrim){
+  return [...scrim.querySelectorAll('input,textarea,select,[contenteditable="true"]')].some(el=>{
+    if(el.disabled||el.type==="hidden")return false;
+    const style=getComputedStyle(el),rect=el.getBoundingClientRect();
+    return style.display!=="none"&&style.visibility!=="hidden"&&rect.width>0&&rect.height>0;
+  });
+}
+document.querySelectorAll(".scrim").forEach(scrim=>scrim.addEventListener("click",e=>{
+  if(e.target===scrim&&!hasVisibleInput(scrim))hide(scrim.id);
+}));
 document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".scrim").forEach(s=>s.classList.remove("show"));document.body.style.overflow="";});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){document.querySelectorAll(".scrim").forEach(s=>s.classList.remove("show"));document.body.style.overflow="";}});
 F("btnAdd").onclick=()=>openEdit(null);
